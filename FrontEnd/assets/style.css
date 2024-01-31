@@ -160,13 +160,13 @@ li:hover {
 	color: #1D6154;
 	height: 100%;
 }
-.filters li:first-child, .filters li:nth-child(2) {
+.btn-tous, .btn-objets {
 	width: 100px;
 }
-.filters li:nth-child(3) {
+.btn-apparts {
 	width: 157px;
 }
-.filters li:last-child {
+.btn-hotels {
 	width: 198px;
 }
 .filters li:hover {
