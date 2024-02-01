@@ -34,10 +34,6 @@ body {
 ol, ul {
 	list-style: none;
 }
-a {
-	text-decoration: none;
-	color: black;
-}
 blockquote, q {
 	quotes: none;
 }
@@ -51,7 +47,12 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
+
+html {
+	scroll-behavior: smooth;
+}
 body {
+	background-color: #FFFEF8;
 	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
@@ -59,6 +60,10 @@ body {
 }
 section {
 	margin: 50px 0;
+}
+a {
+	text-decoration: none;
+	color: black;
 }
 
 /***************/
@@ -103,7 +108,7 @@ nav li {
 	font-size: 1.2em;
 }
 
-li a:hover {
+nav li a:hover {
 	color: #B1663C;
 }
 
@@ -156,7 +161,7 @@ li a:hover {
 	height: 100%
 }
 .filters button {
-	background-color: white;
+	background-color: transparent;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -254,9 +259,17 @@ input[type="submit"]{
 /** FOOTER ********/
 /******************/
 
-footer nav ul {
+footer {
 	display: flex;
+	align-items: center;
 	justify-content: flex-end;
-	margin: 2em;
+	height: 60px;
+	background-color: white;
+}
+footer nav ul {
+	margin-right: 107px;
+}
+footer li {
+	font-size: 1em;
 }
 
