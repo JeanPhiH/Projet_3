@@ -183,9 +183,11 @@ li:hover {
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
-
 .gallery img {
 	width: 100%;
+}
+figcaption {
+	text-align: left;
 }
 
 /******************/
