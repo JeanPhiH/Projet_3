@@ -34,6 +34,10 @@ body {
 ol, ul {
 	list-style: none;
 }
+a {
+	text-decoration: none;
+	color: black;
+}
 blockquote, q {
 	quotes: none;
 }
@@ -99,7 +103,7 @@ nav li {
 	font-size: 1.2em;
 }
 
-li:hover {
+li a:hover {
 	color: #B1663C;
 }
 
@@ -169,11 +173,18 @@ li:hover {
 .btn-hotels {
 	width: 198px;
 }
+
+/* .filters li:focus {
+  background-color: #1d6154;
+  color: white;
+  cursor: default;
+} */
 .filters li:hover {
   background-color: #1d6154;
   color: white;
   cursor: default;
 }
+
 
 /* gallery */
 .gallery {
