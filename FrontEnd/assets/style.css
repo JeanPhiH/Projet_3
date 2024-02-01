@@ -153,6 +153,10 @@ li a:hover {
 	margin: 50px auto;
 }
 .filters li {
+	height: 100%
+}
+.filters button {
+	background-color: white;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -174,16 +178,17 @@ li a:hover {
 	width: 198px;
 }
 
-/* .filters li:focus {
-  background-color: #1d6154;
-  color: white;
-  cursor: default;
-} */
-.filters li:hover {
+/* Activation des boutons filtres */
+.filters button:focus {
   background-color: #1d6154;
   color: white;
   cursor: default;
 }
+/* .filters button:hover {
+  background-color: #1d6154;
+  color: white;
+  cursor: default;
+} */
 
 
 /* gallery */

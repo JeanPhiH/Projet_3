@@ -64,12 +64,5 @@ btnHotels.addEventListener("click", function () {
 	fetchWork(worksHotels);
 });
 
-// boutonFiltrer.addEventListener("click", function () {
-// 	const piecesFiltrees = pieces.filter(function (piece) {
-// 			return piece.prix <= 35;
-// 	});
-// 	document.querySelector(".fiches").innerHTML = "";
-// 	genererPieces(piecesFiltrees);
-// });
 
 console.log(works);
