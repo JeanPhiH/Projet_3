@@ -48,6 +48,9 @@ table {
 }
 /** end reset css**/
 
+* {
+	box-sizing: border-box;
+}
 html {
 	scroll-behavior: smooth;
 }
@@ -62,7 +65,7 @@ main {
 	margin:auto;
 }
 section {
-	margin: 139px auto;
+	margin: 139px auto 0 auto;
 }
 a {
 	text-decoration: none;
@@ -80,8 +83,9 @@ h1{
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
+	font-weight: 400;
+	text-transform: uppercase;
 	letter-spacing: 0.1em;
-;
 }
 
 h2{
@@ -227,7 +231,7 @@ figcaption {
 
 #contact {
 	width: 50%;
-margin: auto;
+	margin: 57px auto 0 auto;
 }
 #contact > * {
 	text-align: center;
@@ -259,7 +263,7 @@ input[type="submit"]{
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
+	margin : 2.5em auto ;
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
