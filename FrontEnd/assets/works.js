@@ -65,4 +65,6 @@ btnHotels.addEventListener("click", function () {
 });
 
 
+
+
 console.log(works);
