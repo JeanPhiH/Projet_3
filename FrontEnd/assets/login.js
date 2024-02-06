@@ -27,17 +27,11 @@ loginForm.addEventListener("submit", function (event) {
 					// function loadIndexCreator();
 				})
 			} else {
-				alert("Erreur dans l’identifiant ou le mot de passe");
-				// const errorElt = document.createElement("span");
-				// errorElt.id = "error";
-				// const error = document.getElementById("error");
-				// error.innerText = "Erreur dans l’identifiant ou le mot de passe";
-				// loginForm.appendChild(error);
+				let error = document.querySelector(".error");
+				error.innerText = "Erreur dans l’identifiant ou le mot de passe !";
 			
 		}
 	})
-		
-		
 })
 
 

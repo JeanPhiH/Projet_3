@@ -3,7 +3,6 @@
 
 const works = await fetch('http://localhost:5678/api/works').then(res => res.json());
 
-
 function fetchWork(works) {
 	for (let i = 0; i < works.length; i++) {
 

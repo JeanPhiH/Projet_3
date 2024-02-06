@@ -146,12 +146,10 @@ main {
 	height: 379px;
 }
 
-/* .input-log {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	width: 100%;
-} */
+.error {
+	color: red;
+	position: absolute;
+}
 
 form h2 {
 	margin-bottom: 37px;
