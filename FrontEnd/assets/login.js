@@ -3,46 +3,42 @@
 const loginForm = document.getElementById("login-form");
 loginForm.addEventListener("submit", function (event) {
 	event.preventDefault();
-	const email = event.target.querySelector("[name=email]");
-	const password = event.target.querySelector("[name=password]");
+	const inputEmail = event.target.querySelector("[name=email]");
+	const inputPassword = event.target.querySelector("[name=password]");
 	const login = {
-		email: email.value,
-		password: password.value
+		email: inputEmail.value,
+		password: inputPassword.value
 	};
-	console.log(login);
+	console.log("login: ",login);
 
-	if (login.email === "sophie.bluel@test.tld" && login.password === "S0phie") {
-		// go to url
-		alert("Connexion reussie");
-		window.location.href = "index.html";
-		// ajout d'éléments
-	} else if (login.email !== "sophie.bluel@test.tld" || login.password !== "S0phie") {
-		let error = document.getElementById("error");
-		error = document.createElement("p");
-		error.id = "error";
+	const login_string = JSON.stringify(login);
+	console.log("login_string: ", login_string);
+
+	fetch("http://localhost:5678/api/users/login", {
+		method: "POST",
+		headers: { "Content-Type": "application/json"},
+		body: login_string
+	}).then((response) => {
+			if (response.ok) {
+				response.json().then((data) => {
+					localStorage.setItem("token", data.token);
+					localStorage.setItem("userId", data.userId);
+					window.location.href = "index.html";
+					// function loadIndexCreator();
+				})
+			} else {
+				alert("Erreur dans l’identifiant ou le mot de passe");
+				// const errorElt = document.createElement("span");
+				// errorElt.id = "error";
+				// const error = document.getElementById("error");
+				// error.innerText = "Erreur dans l’identifiant ou le mot de passe";
+				// loginForm.appendChild(error);
+			
+		}
+	})
 		
-		// on vide les champs
-		event.email.value = "";
-		event.password.value = "";
-		// on affiche le message d'erreur
-		loginForm.appendChild(error);
-		error.innerText = "Erreur dans l’identifiant ou le mot de passe";
-	}
-
-
-	// const login_string = JSON.stringify(login);
-	// console.log(login_string);
-	// fetch("http://localhost:5678/api/users/login", {
-	// 	method: "POST",
-	// 	headers: { "Content-Type": "application/json"},
-	// 	body: login_string
-	// }).then((response) => response.json())
-	// .then((data) => {
-	// 	console.log(data);
-	// })
 		
-});
-
+})
 
 
 // "Authorization": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4"
