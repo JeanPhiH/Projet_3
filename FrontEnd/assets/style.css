@@ -171,10 +171,10 @@ nav img {
 	height: 37px;
 	margin: 50px auto;
 }
-.filters li {
-	height: 100%
-}
+
 .filters button {
+	min-width: 100px;
+	padding: 0 10px;
 	background-color: transparent;
 	display: flex;
 	justify-content: center;
@@ -186,15 +186,6 @@ nav img {
 	border-radius: 60px;
 	color: #1D6154;
 	height: 100%;
-}
-.btn-tous, .btn-objets {
-	width: 100px;
-}
-.btn-apparts {
-	width: 157px;
-}
-.btn-hotels {
-	width: 198px;
 }
 
 /* Activation des boutons filtres */

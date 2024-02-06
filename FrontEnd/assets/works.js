@@ -1,5 +1,5 @@
 
-/** GENERATION GALLERY **********/
+/** GENERATION DYNAMIQUE DE GALLERY **********/
 
 const works = await fetch('http://localhost:5678/api/works').then(res => res.json());
 
@@ -28,43 +28,40 @@ function fetchWork(works) {
 
 fetchWork(works);
 
-/** BOUTONS FILTRES **********/
 
-const btnTous = document.querySelector(".btn-tous");
-const btnObjets = document.querySelector(".btn-objets");
-const btnApparts = document.querySelector(".btn-apparts");
-const btnHotels = document.querySelector(".btn-hotels");
 
-btnTous.addEventListener("click", function () {
+/** AJOUT DYNAMIQUE DES BOUTONS FILTRES **********/
+
+const categories = await fetch('http://localhost:5678/api/categories').then(res => res.json());
+
+function fetchCategories() {
+	// Bouton TOUS pour tout afficher
+	const tousButton = document.createElement("button");
+	tousButton.innerText = "Tous";
+	document.querySelector(".filters").appendChild(tousButton);
+	tousButton.addEventListener("click", function () {
     document.querySelector(".gallery").innerHTML = "";
     fetchWork(works);
-});
+	});
 
-btnObjets.addEventListener("click", function () {
-	const worksObjets = works.filter(function (work) {
-		return work.category.name === "Objets";
-	})
-	document.querySelector(".gallery").innerHTML = "";
-	fetchWork(worksObjets);
-});
+	for (let i = 0; i < categories.length; i++) {
+		// on crée un bouton pour chaque catégorie
+		const newButton = document.createElement("button");
+		newButton.innerText = categories[i].name;
+		document.querySelector(".filters").appendChild(newButton);
 
-btnApparts.addEventListener("click", function () {
-	const worksApparts = works.filter(function (work) {
-		return work.category.name === "Appartements";
-	})
-	document.querySelector(".gallery").innerHTML = "";
-	fetchWork(worksApparts);
-});
+		// on affiche la catégorie filtrée
+		newButton.addEventListener("click", function () {
+			const works_i = works.filter(function (work) {
+				return work.category.name === categories[i].name;
+			})
+			document.querySelector(".gallery").innerHTML = "";
+			fetchWork(works_i);
+		});
+	}
+}
 
-btnHotels.addEventListener("click", function () {
-	const worksHotels = works.filter(function (work) {
-		return work.category.name === "Hotels & restaurants";
-	})
-	document.querySelector(".gallery").innerHTML = "";
-	fetchWork(worksHotels);
-});
+fetchCategories();
 
 
-
-
-console.log(works);
+// console.log(works);
