@@ -24,7 +24,7 @@ loginForm.addEventListener("submit", function (event) {
 					localStorage.setItem("token", data.token);
 					localStorage.setItem("userId", data.userId);
 					window.location.href = "index.html";
-					// function loadIndexCreator();
+					loadCreatorInterface();
 				})
 			} else {
 				let error = document.querySelector(".error");
@@ -33,6 +33,9 @@ loginForm.addEventListener("submit", function (event) {
 		}
 	})
 })
+
+/** CHARGEMENT DU MODE EDITION **********/
+
 
 
 // "Authorization": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4"

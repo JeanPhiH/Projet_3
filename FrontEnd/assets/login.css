@@ -124,7 +124,7 @@ nav img {
 	width: 22px;
 }
 
-a[href="login.html"] {
+.logstate {
 	font-weight: bold;
 }
 
@@ -176,6 +176,9 @@ form button {
 	color: white;
 	width: 179px;
 	height: 36px;
+}
+form button:hover {
+	background-color: black;
 }
 form p {
 	text-decoration: underline;

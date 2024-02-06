@@ -63,4 +63,16 @@ function fetchCategories() {
 fetchCategories();
 
 
+function loadCreatorInterface() {
+	
+	let logstate = document.querySelector(".logstate");
+	logstate.innerText = "Logout";
+	let modeEdition = document.querySelector(".mode-edition");
+	modeEdition.classList.add("active");
+	let modifier = document.querySelector(".modifier");
+	modifier.classList.add("active");
+
+	
+}
+
 // console.log(works);

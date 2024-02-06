@@ -95,9 +95,24 @@ h2{
 	color: #1D6154;
 }
 
+.active {
+	display: flex;
+}
+
 /***************/
 /** HEADER *****/
 /***************/
+
+.mode-edition {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	font-size: 16px;
+	height: 59px;
+	background-color: black;
+	color: white;
+}
 
 header {
 	max-width: 1140px;
@@ -159,6 +174,16 @@ nav img {
 
 #portfolio {
 	text-align: center;
+	position: relative;
+}
+
+.modifier {
+	position: absolute;
+	left: 60%;
+	top: 7px;
+	display: none;
+	justify-content: left;
+	gap: 10px;
 }
 
 
@@ -258,6 +283,9 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+}
+input[type="submit"]:hover {
+	background-color: black;
 }
 
 /******************/
