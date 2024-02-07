@@ -179,11 +179,12 @@ nav img {
 #portfolio {
 	text-align: center;
 	position: relative;
+	width: 85%;
 }
 
 .modifier {
 	position: absolute;
-	left: 60%;
+	left: 63%;
 	top: 7px;
 	display: none;
 	justify-content: left;
@@ -331,8 +332,7 @@ footer li {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	width: 50%;
-	height: 75%;
+	width: 45%;
 	background-color: var(--bg-color);
 	border-radius: 10px;
 }
@@ -349,12 +349,23 @@ footer li {
 	text-align: center;
 	margin-top: 60px;
 }
+.modaleGallery {
+	display: flex;
+	flex-flow: row wrap;
+	gap: 9px;
+	margin: 46px 105px;
+}
+.modaleGallery img {
+	height: 103px;
+	width: 77px;
+	margin-bottom: 26px;
+}
 .line hr {
 	height: 1px;
 	width: 420px;
 	color: #b3b3b3;
 }
-.addPhoto {
+.btnAddPhoto {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;

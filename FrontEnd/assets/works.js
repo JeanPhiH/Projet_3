@@ -88,6 +88,24 @@ function fetchCategories() {
 fetchCategories();
 
 
+/** AJOUT GALLERY DANS LA MODALE **********/
 
+const btnAddPhoto = document.querySelector(".btnAddPhoto");
+
+function fetchModale(works) {
+	for (let i = 0; i < works.length; i++) {
+		const modaleGallery = document.querySelector(".modaleGallery");
+		const img = document.createElement("img");
+		img.src = works[i].imageUrl;
+		modaleGallery.appendChild(img);
+	}
+}
+
+fetchModale(works);
+
+
+btnAddPhoto.addEventListener("click", function () {
+	
+})
 
 // console.log(works);
