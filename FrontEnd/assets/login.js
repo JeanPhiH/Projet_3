@@ -24,7 +24,6 @@ loginForm.addEventListener("submit", function (event) {
 					localStorage.setItem("token", data.token);
 					localStorage.setItem("userId", data.userId);
 					window.location.href = "index.html";
-					loadCreatorInterface();
 				})
 			} else {
 				let error = document.querySelector(".error");
@@ -34,7 +33,7 @@ loginForm.addEventListener("submit", function (event) {
 	})
 })
 
-/** CHARGEMENT DU MODE EDITION **********/
+
 
 
 

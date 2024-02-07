@@ -1,4 +1,28 @@
 
+/** CHARGEMENT DU MODE EDITION **********/
+// si un token et présent dans le localstorage, on execute la fonction loadCreatorInterface()
+if (localStorage.getItem("token")) {
+	loadCreatorInterface();
+}
+
+function loadCreatorInterface() {
+	
+	let logstate = document.querySelector(".logstate");
+	logstate.innerText = "Logout";
+	// on désactive le lien vers login
+	logstate.href = "#";
+	// deconnection
+	logstate.addEventListener("click", function () {
+		localStorage.removeItem("token");
+		window.location.href = "index.html";
+	})
+	let modeEdition = document.querySelector(".mode-edition");
+	modeEdition.classList.add("active");
+	let modifier = document.querySelector(".modifier");
+	modifier.classList.add("active");
+}
+
+
 /** GENERATION DYNAMIQUE DE GALLERY **********/
 
 const works = await fetch('http://localhost:5678/api/works').then(res => res.json());
@@ -63,16 +87,6 @@ function fetchCategories() {
 fetchCategories();
 
 
-function loadCreatorInterface() {
-	
-	let logstate = document.querySelector(".logstate");
-	logstate.innerText = "Logout";
-	let modeEdition = document.querySelector(".mode-edition");
-	modeEdition.classList.add("active");
-	let modifier = document.querySelector(".modifier");
-	modifier.classList.add("active");
 
-	
-}
 
 // console.log(works);

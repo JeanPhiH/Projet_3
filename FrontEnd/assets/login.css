@@ -189,7 +189,9 @@ form p {
 /******************/
 
 footer {
-	margin-top: 355px;
+	position: absolute;
+  bottom: 0;
+  width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;

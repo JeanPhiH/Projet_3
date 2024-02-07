@@ -96,7 +96,7 @@ h2{
 }
 
 .active {
-	display: flex;
+	display: flex !important;
 }
 
 /***************/
@@ -184,6 +184,7 @@ nav img {
 	display: none;
 	justify-content: left;
 	gap: 10px;
+	cursor: pointer;
 }
 
 
