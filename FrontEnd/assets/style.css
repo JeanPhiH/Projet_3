@@ -317,7 +317,7 @@ footer li {
 /******************/
 
 .modaleBackground {
-	display: flex;
+	display: none;
 	justify-content: center;
 	align-items: center;
   position: fixed;
@@ -346,7 +346,6 @@ footer li {
 .modaleWindow h3 {
 	font-family: Work Sans;
 	font-size: 26px;
-	text-align: center;
 	margin-top: 60px;
 }
 .modaleGallery {

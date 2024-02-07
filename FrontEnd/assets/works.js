@@ -90,20 +90,33 @@ fetchCategories();
 
 /** AJOUT GALLERY DANS LA MODALE **********/
 
-const btnAddPhoto = document.querySelector(".btnAddPhoto");
+const modaleGallery = document.querySelector(".modaleGallery");
+const modifier = document.querySelector(".modifier");
+const modaleBackground = document.querySelector(".modaleBackground");
+const croix = document.querySelector(".fa-xmark");
 
 function fetchModale(works) {
 	for (let i = 0; i < works.length; i++) {
-		const modaleGallery = document.querySelector(".modaleGallery");
 		const img = document.createElement("img");
 		img.src = works[i].imageUrl;
 		modaleGallery.appendChild(img);
 	}
 }
 
-fetchModale(works);
+// apuie sur le bouton "modifier" -> affiche la modale
+modifier.addEventListener("click", function () {
+	modaleBackground.classList.add("active");
+	modaleGallery.innerHTML = "";
+	fetchModale(works);
+})
+
+// appuie sur la croix -> ferme la modale
+croix.addEventListener("click", function () {
+	modaleBackground.classList.remove("active");
+})
 
 
+const btnAddPhoto = document.querySelector(".btnAddPhoto");
 btnAddPhoto.addEventListener("click", function () {
 	
 })
