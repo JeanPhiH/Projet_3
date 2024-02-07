@@ -51,12 +51,16 @@ table {
 * {
 	box-sizing: border-box;
 }
+:root {
+	--bg-color : #FFFEF8;
+	--main-color: #1D6154;
+}
 html {
 	scroll-behavior: smooth;
 }
 body {
-	background-color: #FFFEF8;
-	margin:auto;
+	background-color: var(--bg-color);
+	margin: auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
@@ -92,7 +96,7 @@ h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154;
+	color: var(--main-color);
 }
 
 /***************/
@@ -165,13 +169,13 @@ form input {
 form button {
 	margin-top: 7px;
 	margin-bottom: 28px;
-	background-color: #1D6154;
+	background-color: var(--main-color);
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	font-family: "Syne";
 	font-weight: bold;
-	border: 1px solid #1D6154;
+	border: 1px solid var(--main-color);
 	border-radius: 60px;
 	color: white;
 	width: 179px;

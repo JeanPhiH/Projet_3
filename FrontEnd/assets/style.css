@@ -51,11 +51,15 @@ table {
 * {
 	box-sizing: border-box;
 }
+:root {
+	--bg-color : #FFFEF8;
+	--main-color: #1D6154;
+}
 html {
 	scroll-behavior: smooth;
 }
 body {
-	background-color: #FFFEF8;
+	background-color: var(--bg-color);
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
@@ -92,7 +96,7 @@ h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154;
+	color: var(--main-color);
 }
 
 .active {
@@ -208,20 +212,20 @@ nav img {
 	font-family: "Syne";
 	font-size: 16px;
 	font-weight: bold;
-	border: 1px solid #1D6154;
+	border: 1px solid var(--main-color);
 	border-radius: 60px;
-	color: #1D6154;
+	color: var(--main-color);
 	height: 100%;
 }
 
 /* Activation des boutons filtres */
 .filters button:focus {
-  background-color: #1d6154;
+  background-color: var(--main-color);
   color: white;
   cursor: default;
 }
 .filters button:hover {
-  background-color: #1d6154;
+  background-color: var(--main-color);
   color: white;
   cursor: default;
 }
@@ -279,7 +283,7 @@ input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
-	background-color: #1D6154;
+	background-color: var(--main-color);
 	margin : 2.5em auto ;
 	width: 180px;
 	text-align: center;
@@ -307,3 +311,58 @@ footer li {
 	font-size: 1em;
 }
 
+/******************/
+/** MODALE ********/
+/******************/
+
+.modaleBackground {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  position: fixed;
+	top: 0;
+  height: 100vh;
+  width: 100vw;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+.modaleWindow {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	width: 50%;
+	height: 75%;
+	background-color: var(--bg-color);
+	border-radius: 10px;
+}
+.fa-xmark {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	cursor: pointer;
+	font-size: 20px;
+}
+.modaleWindow h3 {
+	font-family: Work Sans;
+	font-size: 26px;
+	text-align: center;
+	margin-top: 60px;
+}
+.line hr {
+	height: 1px;
+	width: 420px;
+	color: #b3b3b3;
+}
+.addPhoto {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: var(--main-color);
+	border: 1px solid var(--main-color);
+	margin : 2.5em auto ;
+	width: 237px;
+	height: 36px;
+	text-align: center;
+	border-radius: 60px ;
+}

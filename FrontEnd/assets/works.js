@@ -1,5 +1,6 @@
 
 /** CHARGEMENT DU MODE EDITION **********/
+
 // si un token et présent dans le localstorage, on execute la fonction loadCreatorInterface()
 if (localStorage.getItem("token")) {
 	loadCreatorInterface();
