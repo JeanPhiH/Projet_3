@@ -100,8 +100,28 @@ function fetchModale(works) {
 		const img = document.createElement("img");
 		img.src = works[i].imageUrl;
 		modaleGallery.appendChild(img);
+		
+		const divTrash = document.createElement("div");
+		divTrash.classList.add(`trash-${i}`);
+		const iTrash = document.createElement("i");
+		iTrash.classList.add("fa-trash-alt");
+		iTrash.classList.add("fa-solid");
+		iTrash.classList.add(`nb-${i}`);
+		divTrash.appendChild(iTrash);
+		modaleGallery.appendChild(divTrash);
 	}
 }
+
+
+/* 	<div class="trash">
+			<i class="fa-solid fa-trash-alt"></i>
+		</div> 
+		
+	css divTrash
+	css fa-trash-alt
+	quand clic poubelle -> suppr works[i]*/
+
+
 
 // apuie sur le bouton "modifier" -> affiche la modale
 modifier.addEventListener("click", function () {
