@@ -335,6 +335,7 @@ footer li {
 	width: 45%;
 	background-color: var(--bg-color);
 	border-radius: 10px;
+	z-index: 1;
 }
 .fa-xmark {
 	position: absolute;
@@ -375,4 +376,7 @@ footer li {
 	height: 36px;
 	text-align: center;
 	border-radius: 60px ;
+}
+.btnAddPhoto:hover {
+	background-color: black;
 }

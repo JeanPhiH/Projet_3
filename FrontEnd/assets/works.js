@@ -115,6 +115,14 @@ croix.addEventListener("click", function () {
 	modaleBackground.classList.remove("active");
 })
 
+// appuie sur le background -> ferme la modale
+modaleBackground.addEventListener("click", function (event) {
+	if (event.target === modaleBackground) {
+		modaleBackground.classList.remove("active");}
+})
+
+
+/** AFFICHAGE PAGE  **********/
 
 const btnAddPhoto = document.querySelector(".btnAddPhoto");
 btnAddPhoto.addEventListener("click", function () {
