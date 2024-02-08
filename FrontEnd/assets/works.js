@@ -116,18 +116,20 @@ function fetchModale(works) {
 		modaleGallery.appendChild(modaleWork);
 
 		// clic sur icone trash id="i" -> suppr works[i]
-		document.getElementById(`${i}`).addEventListener("click", function () {
-			fetch("http://localhost:5678/api/works/" + works[i].id, {
+		document.getElementById(`${i}`).addEventListener("click", async function (e) {
+			e.preventDefault();
+			await fetch("http://localhost:5678/api/works/" + works[i].id, {
 				method: "DELETE",
 				headers: {
 					Authorization: "Bearer " + sessionStorage.getItem("token"),
-				},
-			}).then((res) => res.json());
+					"Content-Type": "application/json"
+				}
+			});
 			modaleGallery.innerHTML = "";
 			fetchModale(works);
 		});
-	}
-}
+	};
+};
 
 // apuie sur le bouton "modifier" -> affiche la modale
 modifier.addEventListener("click", function () {
