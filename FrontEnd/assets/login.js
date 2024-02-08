@@ -21,8 +21,8 @@ loginForm.addEventListener("submit", function (event) {
 	}).then((response) => {
 			if (response.ok) {
 				response.json().then((data) => {
-					localStorage.setItem("token", data.token);
-					localStorage.setItem("userId", data.userId);
+					sessionStorage.setItem("token", data.token);
+					sessionStorage.setItem("userId", data.userId);
 					window.location.href = "index.html";
 				})
 			} else {

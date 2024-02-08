@@ -373,6 +373,7 @@ footer li {
 	background-color: black;
 	right: 5px;
 	top: 6px;
+	cursor: pointer;
 }
 .fa-trash-alt {
 	color: white;

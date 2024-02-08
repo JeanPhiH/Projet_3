@@ -1,8 +1,8 @@
 
 /** CHARGEMENT DU MODE EDITION **********/
 
-// si un token et présent dans le localstorage, on execute la fonction loadCreatorInterface()
-if (localStorage.getItem("token")) {
+// si un token et présent dans le sessionStorage, on execute la fonction loadCreatorInterface()
+if (sessionStorage.getItem("token")) {
 	loadCreatorInterface();
 }
 
@@ -14,7 +14,7 @@ function loadCreatorInterface() {
 	logstate.href = "#";
 	// deconnection
 	logstate.addEventListener("click", function () {
-		localStorage.removeItem("token");
+		sessionStorage.removeItem("token");
 		window.location.href = "index.html";
 	})
 	let modeEdition = document.querySelector(".mode-edition");
@@ -117,12 +117,21 @@ function fetchModale(works) {
 		divTrash.appendChild(iTrash);
 		modaleWork.appendChild(divTrash);
 		modaleGallery.appendChild(modaleWork);
+
+		// clic sur icone trash id="i" -> suppr works[i]
+		iTrash[id=`${i}`].addEventListener("click", function () {
+			fetch("http://localhost:5678/api/works/" + works[i].id, {
+				method: "DELETE",
+				headers: {
+					"Authorization": "Bearer " + sessionStorage.getItem("token"),
+				}
+			})
+			.then((response) => console.log(response.json()))
+			modaleGallery.innerHTML = "";
+			fetchModale(works);
+		})
 	}
 }
-
-
-/* quand clic poubelle id="ajouti" -> suppr works[i]*/
-
 
 
 // apuie sur le bouton "modifier" -> affiche la modale
