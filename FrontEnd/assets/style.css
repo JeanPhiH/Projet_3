@@ -312,9 +312,9 @@ footer li {
 	font-size: 1em;
 }
 
-/******************/
-/** MODALE ********/
-/******************/
+/**************************/
+/** MODALE GALERIE ********/
+/**************************/
 
 .modaleBackground {
 	display: none;
@@ -335,25 +335,26 @@ footer li {
 	width: 45%;
 	background-color: var(--bg-color);
 	border-radius: 10px;
-	z-index: 1;
+	padding: 45px 105px;
 }
-.fa-xmark {
+.modaleWindow > i {
 	position: absolute;
 	top: 30px;
 	right: 30px;
 	cursor: pointer;
 	font-size: 20px;
 }
-.modaleWindow h3 {
+h3 {
 	font-family: Work Sans;
 	font-size: 26px;
-	margin-top: 60px;
+	margin-top: 15px;
+	margin-bottom: 45px;
 }
 .modaleGallery {
 	display: flex;
 	flex-flow: row wrap;
 	gap: 9px;
-	margin: 46px 105px;
+	
 }
 .modaleWork {
 	position: relative;
@@ -380,6 +381,7 @@ footer li {
 	font-size: 10px;
 }
 .line hr {
+	margin-top: 37px;
 	height: 1px;
 	width: 420px;
 	color: #b3b3b3;
@@ -390,7 +392,7 @@ footer li {
 	color: white;
 	background-color: var(--main-color);
 	border: 1px solid var(--main-color);
-	margin : 2.5em auto ;
+	margin-top: 38px;
 	width: 237px;
 	height: 36px;
 	text-align: center;
@@ -398,4 +400,47 @@ footer li {
 }
 .btnAddPhoto:hover {
 	background-color: black;
+}
+
+/**************************/
+/** MODALE GALERIE ********/
+/**************************/
+
+.modaleAjout {
+	position: relative;
+	display: none;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	width: 45%;
+	background-color: var(--bg-color);
+	border-radius: 10px;
+	padding: 45px 105px;
+}
+.modaleAjout .fa-xmark {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	font-size: 20px;
+}
+.modaleAjout .fa-arrow-left {
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	font-size: 20px;
+}
+.modaleForm {
+	width: 100%;
+}
+.uploadBox {
+	background-color: #e8f1f6;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+.uploadBox .fa-image {
+	font-size: 100px;
+	color: #b9c5cc;
 }
