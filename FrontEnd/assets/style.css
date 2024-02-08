@@ -355,11 +355,28 @@ footer li {
 	gap: 9px;
 	margin: 46px 105px;
 }
-.modaleGallery img {
+.modaleWork {
 	position: relative;
+	margin-bottom: 21px;
+}
+.modaleWork img {
 	height: 103px;
 	width: 77px;
-	margin-bottom: 26px;
+}
+.trash {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	height: 17px;
+	width: 17px;
+	background-color: black;
+	right: 5px;
+	top: 6px;
+}
+.fa-trash-alt {
+	color: white;
+	font-size: 10px;
 }
 .line hr {
 	height: 1px;

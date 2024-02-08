@@ -97,29 +97,31 @@ const croix = document.querySelector(".fa-xmark");
 
 function fetchModale(works) {
 	for (let i = 0; i < works.length; i++) {
+		//on crée l'arboresscence suivante: 
+		//<div class="modaleWork"> <img src="imageUrl"> <div class="trash"> <i id="i" class="fa-solid fa-trash-alt"></i> </div> </div>
+		const modaleWork = document.createElement("div");
+		modaleWork.classList.add(`modaleWork`);
+
 		const img = document.createElement("img");
 		img.src = works[i].imageUrl;
-		modaleGallery.appendChild(img);
+		modaleWork.appendChild(img);
 		
 		const divTrash = document.createElement("div");
-		divTrash.classList.add(`trash-${i}`);
+		divTrash.classList.add(`trash`);
+
 		const iTrash = document.createElement("i");
 		iTrash.classList.add("fa-trash-alt");
 		iTrash.classList.add("fa-solid");
-		iTrash.classList.add(`nb-${i}`);
+		iTrash.id = `${i}`;
+
 		divTrash.appendChild(iTrash);
-		modaleGallery.appendChild(divTrash);
+		modaleWork.appendChild(divTrash);
+		modaleGallery.appendChild(modaleWork);
 	}
 }
 
 
-/* 	<div class="trash">
-			<i class="fa-solid fa-trash-alt"></i>
-		</div> 
-		
-	css divTrash
-	css fa-trash-alt
-	quand clic poubelle -> suppr works[i]*/
+/* quand clic poubelle id="ajouti" -> suppr works[i]*/
 
 
 
@@ -142,7 +144,7 @@ modaleBackground.addEventListener("click", function (event) {
 })
 
 
-/** AFFICHAGE PAGE  **********/
+/** AFFICHAGE PAGE UPLOAD **********/
 
 const btnAddPhoto = document.querySelector(".btnAddPhoto");
 btnAddPhoto.addEventListener("click", function () {
