@@ -146,7 +146,7 @@
 					</div>
 						Contenu généré en JS -->
 				</div>
-				<div class="line"><hr></div>
+				<div class="line"><hr /></div>
 				<button class="btnAddPhoto">Ajouter une photo</button>
 			</div>
 			<div class="modaleAjout">
@@ -156,12 +156,21 @@
 				<form class="modaleForm">
 					<div class="uploadBox">
 						<i class="fa-regular fa-image"></i>
-						<input type="file" class="btnUpload" value="+ Ajouter photo">
+						<label for="btnUpload">+ Ajouter photo</label>
+						<input type="file" id="btnUpload" />
 						<p class="uploadInfo">jpg, png : 4mo max</p>
+						<label for="titleUpload">Titre</label>
+						<input type="string" id="titleUpload" />
+						<label for="catUpload">Catégorie</label>
+						<select id="catUpload">
+							<option value="1">Objets</option>
+							<option value="2">Appartements</option>
+							<option value="3">Hôtels & restaurants</option>
+						</select>
+						<button type="submit" class="btnSubmit">Valider</button>
 					</div>
 				</form>
 			</div>
 		</div>
-
 	</body>
 </html>

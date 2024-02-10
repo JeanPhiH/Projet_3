@@ -9,10 +9,8 @@ loginForm.addEventListener("submit", function (event) {
 		email: inputEmail.value,
 		password: inputPassword.value
 	};
-	console.log("login: ",login);
 
 	const login_string = JSON.stringify(login);
-	console.log("login_string: ", login_string);
 
 	fetch("http://localhost:5678/api/users/login", {
 		method: "POST",
