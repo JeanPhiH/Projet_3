@@ -27,7 +27,7 @@
 		<!------------------>
 		<!-- HEADER -------->
 		<!------------------>
-		
+
 		<div class="mode-edition">
 			<i class="fa-regular fa-pen-to-square"></i>
 			<span>Mode édition</span>
@@ -139,14 +139,14 @@
 				<i class="fa-solid fa-xmark exitModaleWindow"></i>
 				<h3>Galerie photo</h3>
 				<div class="modaleGallery">
-					<!-- 
+					<!-- généré en JS
 					<div class="modaleWork">
 						<img src="#">	
 						<div class="trash">
 							<i id="i" class="fa-solid fa-trash-alt"></i>
 						</div>
 					</div>
-						Contenu généré en JS -->
+					-->
 				</div>
 				<div class="line"><hr /></div>
 				<button class="btnAddPhoto">Ajouter une photo</button>
@@ -164,17 +164,19 @@
 					<div class="uploadBox">
 						<i class="fa-regular fa-image"></i>
 						<label class="btnUpload" for="inputFile">+ Ajouter photo</label>
-						<input type="file" id="inputFile" accept=".jpg, .png" />
+						<input type="file" id="inputFile" accept=".jpg, .png" required/>
 						<p id="uploadAut">jpg, png : 4mo max</p>
 					</div>
 					<div class="uploadInfo">
 						<label for="titleUpload">Titre</label>
 						<input type="string" id="titleUpload" required />
 						<label for="catUpload">Catégorie</label>
-						<select id="catUpload" >
-							<option value="1">Objets</option>
-							<option value="2">Appartements</option>
-							<option value="3">Hôtels & restaurants</option>
+						<select id="catUpload" required>
+							<!-- Généré en JS
+							<option value="Objets">Objets</option>
+							<option value="Appartements">Appartements</option>
+							<option value="Hôtels & restaurants">Hôtels & restaurants</option> 
+							-->
 						</select>
 					</div>
 					<div class="line"><hr /></div>

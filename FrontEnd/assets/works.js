@@ -1,3 +1,4 @@
+//////////////////////////////////////////
 /** CHARGEMENT DU MODE EDITION **********/
 
 // si un token et présent dans le sessionStorage, on execute la fonction loadCreatorInterface()
@@ -20,7 +21,11 @@ function loadCreatorInterface() {
 	let modifier = document.querySelector(".modifier");
 	modifier.classList.add("active");
 }
+//////////////////////////////////////////
 
+
+
+///////////////////////////////////////////////
 /** GENERATION DYNAMIQUE DE GALLERY **********/
 
 const works = await fetch("http://localhost:5678/api/works").then((res) =>
@@ -49,7 +54,11 @@ function fetchWork(works) {
 }
 
 fetchWork(works);
+///////////////////////////////////////////////
 
+
+
+///////////////////////////////////////////////////
 /** AJOUT DYNAMIQUE DES BOUTONS FILTRES **********/
 
 const categories = await fetch("http://localhost:5678/api/categories").then(
@@ -84,8 +93,11 @@ function fetchCategories() {
 }
 
 fetchCategories();
+///////////////////////////////////////////////////
 
 
+
+////////////////////////////////////////////
 /** AJOUT GALLERY DANS LA MODALE **********/
 
 const modaleGallery = document.querySelector(".modaleGallery");
@@ -128,29 +140,46 @@ function fetchModale(works) {
 		});
 	};
 };
+////////////////////////////////////////////
 
 
-/** IMAGE UPLOAD **********/
+
+/////////////////////////////
+/** MODALE UPLOAD **********/
+
+// IMAGE UPLOAD
 
 const uploadBox = document.querySelector(".uploadBox")
 const btnUpload = document.querySelector(".btnUpload");
 const inputFile = document.getElementById("inputFile");
 const imgUpload = document.createElement("img");
+imgUpload.classList.add("imgUpload");
+let imgSrc;
 
 let imgUrl = inputFile.addEventListener('change', () => {
 	const imgFile = inputFile.files[0];
-	let imgSrc = URL.createObjectURL(imgFile); // need path, pas url
+	imgSrc = URL.createObjectURL(imgFile);
 	imgUpload.src = imgSrc;
-	previewImg();
-	return imgSrc;
+	uploadBox.innerText = "";
+	uploadBox.style.height = "170px";
+	uploadBox.appendChild(imgUpload);
 });
-console.log(imgUrl);
 
-function previewImg() {
-		uploadBox.innerText = "";
-		uploadBox.style.height = "170px";
-		uploadBox.appendChild(imgUpload);
+// CATEGORIES UPLOAD
+
+for (let i = 0; i < categories.length; i++) {
+	// on crée une option dans select pour chaque catégorie
+	const newOption = document.createElement("option");
+	newOption.innerText = categories[i].name;
+	newOption.value = categories[i].name;
+	document.getElementById("catUpload").appendChild(newOption);
 }
+/////////////////////////////
+
+
+
+///////////////////////////////
+/** BOUTONS MODALES **********/
 
 // appuie sur le bouton "modifier" -> affiche la modale
 const modifier = document.querySelector(".modifier");
@@ -202,7 +231,7 @@ retour.addEventListener("click", function () {
 	modaleWindow.classList.add("active");
 	modaleAjout.classList.remove("active");
 });
-
+///////////////////////////////
 
 
 
