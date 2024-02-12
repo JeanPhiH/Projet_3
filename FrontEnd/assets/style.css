@@ -328,7 +328,7 @@ footer li {
 }
 .modaleWindow {
 	position: relative;
-	display: flex;
+	display: none;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
@@ -408,7 +408,7 @@ h3 {
 
 .modaleAjout {
 	position: relative;
-	display: flex;
+	display: none;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
@@ -422,12 +422,14 @@ h3 {
 	top: 30px;
 	right: 30px;
 	font-size: 20px;
+	cursor: pointer;
 }
 .modaleAjout .fa-arrow-left {
 	position: absolute;
 	top: 30px;
 	left: 30px;
 	font-size: 20px;
+	cursor: pointer;
 }
 .modaleForm {
 	width: 100%;

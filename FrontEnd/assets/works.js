@@ -85,12 +85,10 @@ function fetchCategories() {
 
 fetchCategories();
 
+
 /** AJOUT GALLERY DANS LA MODALE **********/
 
 const modaleGallery = document.querySelector(".modaleGallery");
-const modifier = document.querySelector(".modifier");
-const modaleBackground = document.querySelector(".modaleBackground");
-const croix = document.querySelector(".fa-xmark");
 
 function fetchModale(works) {
 	for (let i = 0; i < works.length; i++) {
@@ -131,28 +129,54 @@ function fetchModale(works) {
 	};
 };
 
+
 // apuie sur le bouton "modifier" -> affiche la modale
+const modifier = document.querySelector(".modifier");
+const modaleWindow = document.querySelector(".modaleWindow");
 modifier.addEventListener("click", function () {
 	modaleBackground.classList.add("active");
+	modaleWindow.classList.add("active");
 	modaleGallery.innerHTML = "";
 	fetchModale(works);
 });
 
 // appuie sur la croix -> ferme la modale
-croix.addEventListener("click", function () {
+const croixMW = document.querySelector(".exitModaleWindow");
+croixMW.addEventListener("click", function () {
 	modaleBackground.classList.remove("active");
+	modaleWindow.classList.remove("active");
+	modaleAjout.classList.remove("active");
 });
 
 // appuie sur le background -> ferme la modale
+const modaleBackground = document.querySelector(".modaleBackground");
 modaleBackground.addEventListener("click", function (event) {
 	if (event.target === modaleBackground) {
 		modaleBackground.classList.remove("active");
+		modaleWindow.classList.remove("active");
+		modaleAjout.classList.remove("active");
 	}
 });
 
 /** AFFICHAGE PAGE UPLOAD **********/
 
+const modaleAjout = document.querySelector(".modaleAjout");
 const btnAddPhoto = document.querySelector(".btnAddPhoto");
-btnAddPhoto.addEventListener("click", function () {});
+btnAddPhoto.addEventListener("click", function () {
+	modaleWindow.classList.remove("active");
+	modaleAjout.classList.add("active");
+});
 
+const croixMA = document.querySelector(".exitModaleAjout");
+croixMA.addEventListener("click", function () {
+	modaleBackground.classList.remove("active");
+	modaleWindow.classList.remove("active");
+	modaleAjout.classList.remove("active");
+});
+
+const retour = document.querySelector(".fa-arrow-left");
+retour.addEventListener("click", function () {
+	modaleWindow.classList.add("active");
+	modaleAjout.classList.remove("active");
+});
 // console.log(works);
