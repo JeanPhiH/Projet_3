@@ -446,19 +446,25 @@ h3 {
 	justify-content: center;
 	align-items: center;
 	width: 100%;
+	position: relative;
 }
 .uploadBox .fa-image {
 	font-size: 85px;
 	color: #b9c5cc;
 	margin: 13px auto 6px auto;
 }
-#btnUpload {
+.uploadBox img {
+	position: absolute;
+	height: 100%;
+	object-fit: cover;
+}
+#inputFile {
 	display: none;
 }
 #uploadAut {
 	margin: 7px auto 19px auto;
 }
-.uploadBox label {
+.btnUpload {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -469,6 +475,10 @@ h3 {
 	width: 173px;
 	height: 36px;
 	border-radius: 50px ;
+}
+.btnUpload:hover {
+	color: #cbd6dc;
+	background-color: var(--main-color);
 }
 #titleUpload, #catUpload {
 	width: 100%;
@@ -494,4 +504,7 @@ h3 {
 	height: 36px;
 	text-align: center;
 	border-radius: 60px ;
+}
+.btnSubmit:hover {
+	background-color: black;
 }

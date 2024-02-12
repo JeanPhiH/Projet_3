@@ -20,12 +20,14 @@
 		<meta name="description" content="" />
 		<link rel="stylesheet" href="./assets/style.css" />
 		<script type="module" src="./assets/works.js" defer></script>
-		<script type="module" src="./assets/login.js" defer></script>
+		<!-- <script type="module" src="./assets/login.js" defer></script> -->
 	</head>
 	<body>
+
 		<!------------------>
 		<!-- HEADER -------->
 		<!------------------>
+		
 		<div class="mode-edition">
 			<i class="fa-regular fa-pen-to-square"></i>
 			<span>Mode édition</span>
@@ -161,15 +163,15 @@
 				<form class="modaleForm">
 					<div class="uploadBox">
 						<i class="fa-regular fa-image"></i>
-						<label for="btnUpload">+ Ajouter photo</label>
-						<input type="file" id="btnUpload" />
+						<label class="btnUpload" for="inputFile">+ Ajouter photo</label>
+						<input type="file" id="inputFile" accept=".jpg, .png" />
 						<p id="uploadAut">jpg, png : 4mo max</p>
 					</div>
 					<div class="uploadInfo">
 						<label for="titleUpload">Titre</label>
-						<input type="string" id="titleUpload" />
+						<input type="string" id="titleUpload" required />
 						<label for="catUpload">Catégorie</label>
-						<select id="catUpload">
+						<select id="catUpload" >
 							<option value="1">Objets</option>
 							<option value="2">Appartements</option>
 							<option value="3">Hôtels & restaurants</option>

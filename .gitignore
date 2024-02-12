@@ -1,3 +1,4 @@
 .idea
 .vscode
-Projet3.code-workspace
+*.code-workspace
+

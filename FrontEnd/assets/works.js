@@ -130,7 +130,29 @@ function fetchModale(works) {
 };
 
 
-// apuie sur le bouton "modifier" -> affiche la modale
+/** IMAGE UPLOAD **********/
+
+const uploadBox = document.querySelector(".uploadBox")
+const btnUpload = document.querySelector(".btnUpload");
+const inputFile = document.getElementById("inputFile");
+const imgUpload = document.createElement("img");
+
+let imgUrl = inputFile.addEventListener('change', () => {
+	const imgFile = inputFile.files[0];
+	let imgSrc = URL.createObjectURL(imgFile); // need path, pas url
+	imgUpload.src = imgSrc;
+	previewImg();
+	return imgSrc;
+});
+console.log(imgUrl);
+
+function previewImg() {
+		uploadBox.innerText = "";
+		uploadBox.style.height = "170px";
+		uploadBox.appendChild(imgUpload);
+}
+
+// appuie sur le bouton "modifier" -> affiche la modale
 const modifier = document.querySelector(".modifier");
 const modaleWindow = document.querySelector(".modaleWindow");
 modifier.addEventListener("click", function () {
@@ -158,8 +180,7 @@ modaleBackground.addEventListener("click", function (event) {
 	}
 });
 
-/** AFFICHAGE PAGE UPLOAD **********/
-
+// appuie sur Ajouter une photo -> ouvre 2nde modale
 const modaleAjout = document.querySelector(".modaleAjout");
 const btnAddPhoto = document.querySelector(".btnAddPhoto");
 btnAddPhoto.addEventListener("click", function () {
@@ -167,6 +188,7 @@ btnAddPhoto.addEventListener("click", function () {
 	modaleAjout.classList.add("active");
 });
 
+// croix 2nde modale -> ferme modale
 const croixMA = document.querySelector(".exitModaleAjout");
 croixMA.addEventListener("click", function () {
 	modaleBackground.classList.remove("active");
@@ -174,9 +196,14 @@ croixMA.addEventListener("click", function () {
 	modaleAjout.classList.remove("active");
 });
 
+// fleche retour -> revient sur 1ere modale
 const retour = document.querySelector(".fa-arrow-left");
 retour.addEventListener("click", function () {
 	modaleWindow.classList.add("active");
 	modaleAjout.classList.remove("active");
 });
+
+
+
+
 // console.log(works);
