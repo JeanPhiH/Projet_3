@@ -1,5 +1,5 @@
-//////////////////////////////////////////
-/** CHARGEMENT DU MODE EDITION **********/
+////////////////////////////////
+// CHARGEMENT DU MODE EDITION //
 
 // si un token et présent dans le sessionStorage, on execute la fonction loadCreatorInterface()
 if (sessionStorage.getItem("token")) {
@@ -21,20 +21,20 @@ function loadCreatorInterface() {
 	let modifier = document.querySelector(".modifier");
 	modifier.classList.add("active");
 }
-//////////////////////////////////////////
+////////////////////////////////
 
 
 
-///////////////////////////////////////////////
-/** GENERATION DYNAMIQUE DE GALLERY **********/
-
-const works = await fetch("http://localhost:5678/api/works").then((res) =>
-	res.json()
-);
+/////////////////////////////////////
+// GENERATION DYNAMIQUE DE GALLERY //
+let works
 const gallery = document.querySelector(".gallery");
 
-function fetchWork(works) {
+async function fetchWork(works) {
 	gallery.innerHTML="";
+	works = await fetch("http://localhost:5678/api/works").then((res) =>
+		res.json()
+	);
 	for (let i = 0; i < works.length; i++) {
 		// chaque réalisation dans une balise figure pour la sémantique
 		const figure = document.createElement("figure");
@@ -53,12 +53,12 @@ function fetchWork(works) {
 }
 
 fetchWork(works);
-///////////////////////////////////////////////
+/////////////////////////////////////
 
 
 
-///////////////////////////////////////////////////
-/** AJOUT DYNAMIQUE DES BOUTONS FILTRES **********/
+/////////////////////////////////////////
+// AJOUT DYNAMIQUE DES BOUTONS FILTRES //
 
 const categories = await fetch("http://localhost:5678/api/categories").then(
 	(res) => res.json()
@@ -70,6 +70,7 @@ function fetchCategories() {
 	tousButton.innerText = "Tous";
 	document.querySelector(".filters").appendChild(tousButton);
 	tousButton.addEventListener("click", function () {
+		gallery.innerHTML = "";
 		fetchWork(works);
 	});
 
@@ -84,22 +85,27 @@ function fetchCategories() {
 			const works_i = works.filter(function (work) {
 				return work.category.name === categories[i].name;
 			});
+			document.querySelector(".gallery").innerHTML = "";
 			fetchWork(works_i);
 		});
 	}
 }
 
 fetchCategories();
-///////////////////////////////////////////////////
+/////////////////////////////////////////
 
 
 
-////////////////////////////////////////////
-/** AJOUT GALLERY DANS LA MODALE **********/
+////////////////////
+// MODALE GALLERY //
 
 const modalGallery = document.querySelector(".modalGallery");
 
-function fetchModale(works) {
+async function fetchModale(works) {
+	modalGallery.innerHTML="";
+	works = await fetch("http://localhost:5678/api/works").then((res) =>
+		res.json()
+	);
 	for (let i = 0; i < works.length; i++) {
 		//on crée l'arboresscence suivante:
 		//<div class="modalWork"> <img src="imageUrl"> <div class="trash"> <i id="i" class="fa-solid fa-trash-alt"></i> </div> </div>
@@ -139,17 +145,15 @@ function fetchModale(works) {
 					fetchWork(works);
 				}
 			});
-			// modalGallery.innerHTML = "";
-			// fetchModale(works);
 		});
 	};
 };
-////////////////////////////////////////////
+////////////////////
 
 
 
-/////////////////////////////
-/** MODALE UPLOAD **********/
+///////////////////
+// MODALE UPLOAD //
 
 // IMAGE UPLOAD
 
@@ -219,12 +223,12 @@ btnSubmit.addEventListener("click", function (event) {
 	modalGallery.innerHTML = "";
 	fetchModale(works);
 });	
-/////////////////////////////
+///////////////////
 
 
 
-///////////////////////////////
-/** BOUTONS MODALES **********/
+/////////////////////
+// BOUTONS MODALES //
 
 // appuie sur le bouton "modifier" -> affiche la modale
 const modifier = document.querySelector(".modifier");
@@ -276,7 +280,7 @@ retour.addEventListener("click", function () {
 	modalWindow.classList.add("active");
 	modalUpload.classList.remove("active");
 });
-///////////////////////////////
+/////////////////////
 
 
 

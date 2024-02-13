@@ -103,9 +103,9 @@ h2{
 	display: flex !important;
 }
 
-/***************/
-/** HEADER *****/
-/***************/
+/**********/
+/* HEADER */
+/**********/
 
 .mode-edition {
 	display: none;
@@ -143,9 +143,9 @@ nav img {
 	width: 22px;
 }
 
-/******************/
-/** INTRODUCTION **/
-/******************/
+/****************/
+/* INTRODUCTION */
+/****************/
 
 #introduction {
 	display: flex;
@@ -172,9 +172,9 @@ nav img {
 	margin-bottom: 0.5em;
 }
 
-/******************/
-/** PORTFOLIO *****/
-/******************/
+/*************/
+/* PORTFOLIO */
+/*************/
 
 #portfolio {
 	text-align: center;
@@ -249,9 +249,9 @@ figcaption {
 	text-align: left;
 }
 
-/******************/
-/** CONTACT *******/
-/******************/
+/***********/
+/* CONTACT */
+/***********/
 
 #contact {
 	width: 50%;
@@ -296,9 +296,9 @@ input[type="submit"]:hover {
 	background-color: black;
 }
 
-/******************/
-/** FOOTER ********/
-/******************/
+/**********/
+/* FOOTER */
+/**********/
 
 footer {
 	display: flex;
@@ -314,9 +314,9 @@ footer li {
 	font-size: 1em;
 }
 
-/**************************/
-/** MODALE GALERIE ********/
-/**************************/
+/******************/
+/* MODALE GALERIE */
+/******************/
 
 .modalBackground {
 	display: none;
@@ -404,9 +404,9 @@ h3 {
 	background-color: black;
 }
 
-/**************************/
-/** MODALE UPLOAD *********/
-/**************************/
+/*****************/
+/* MODALE UPLOAD */
+/*****************/
 
 .modalUpload {
 	position: relative;
