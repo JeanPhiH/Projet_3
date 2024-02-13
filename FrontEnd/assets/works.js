@@ -100,18 +100,18 @@ fetchCategories();
 ////////////////////////////////////////////
 /** AJOUT GALLERY DANS LA MODALE **********/
 
-const modaleGallery = document.querySelector(".modaleGallery");
+const modalGallery = document.querySelector(".modalGallery");
 
 function fetchModale(works) {
 	for (let i = 0; i < works.length; i++) {
 		//on crée l'arboresscence suivante:
-		//<div class="modaleWork"> <img src="imageUrl"> <div class="trash"> <i id="i" class="fa-solid fa-trash-alt"></i> </div> </div>
-		const modaleWork = document.createElement("div");
-		modaleWork.classList.add("modaleWork");
+		//<div class="modalWork"> <img src="imageUrl"> <div class="trash"> <i id="i" class="fa-solid fa-trash-alt"></i> </div> </div>
+		const modalWork = document.createElement("div");
+		modalWork.classList.add("modalWork");
 
 		const img = document.createElement("img");
 		img.src = works[i].imageUrl;
-		modaleWork.appendChild(img);
+		modalWork.appendChild(img);
 
 		const divTrash = document.createElement("div");
 		divTrash.classList.add("trash");
@@ -122,8 +122,8 @@ function fetchModale(works) {
 		iTrash.classList.add("fa-solid");
 
 		divTrash.appendChild(iTrash);
-		modaleWork.appendChild(divTrash);
-		modaleGallery.appendChild(modaleWork);
+		modalWork.appendChild(divTrash);
+		modalGallery.appendChild(modalWork);
 
 		// clic sur icone trash id="i" -> suppr works[i]
 		document.getElementById(`${i}`).addEventListener("click", async function (e) {
@@ -135,7 +135,7 @@ function fetchModale(works) {
 					"Content-Type": "application/json"
 				}
 			});
-			modaleGallery.innerHTML = "";
+			modalGallery.innerHTML = "";
 			fetchModale(works);
 		});
 	};
@@ -183,53 +183,53 @@ for (let i = 0; i < categories.length; i++) {
 
 // appuie sur le bouton "modifier" -> affiche la modale
 const modifier = document.querySelector(".modifier");
-const modaleWindow = document.querySelector(".modaleWindow");
+const modalWindow = document.querySelector(".modalWindow");
 modifier.addEventListener("click", function () {
-	modaleBackground.classList.add("active");
-	modaleWindow.classList.add("active");
-	modaleGallery.innerHTML = "";
+	modalBackground.classList.add("active");
+	modalWindow.classList.add("active");
+	modalGallery.innerHTML = "";
 	fetchModale(works);
 });
 
 // appuie sur la croix -> ferme la modale
-const croixMW = document.querySelector(".exitModaleWindow");
-croixMW.addEventListener("click", function () {
-	modaleBackground.classList.remove("active");
-	modaleWindow.classList.remove("active");
-	modaleAjout.classList.remove("active");
+const exitMW = document.querySelector(".exitModalWindow");
+exitMW.addEventListener("click", function () {
+	modalBackground.classList.remove("active");
+	modalWindow.classList.remove("active");
+	modalUpload.classList.remove("active");
 });
 
 // appuie sur le background -> ferme la modale
-const modaleBackground = document.querySelector(".modaleBackground");
-modaleBackground.addEventListener("click", function (event) {
-	if (event.target === modaleBackground) {
-		modaleBackground.classList.remove("active");
-		modaleWindow.classList.remove("active");
-		modaleAjout.classList.remove("active");
+const modalBackground = document.querySelector(".modalBackground");
+modalBackground.addEventListener("click", function (event) {
+	if (event.target === modalBackground) {
+		modalBackground.classList.remove("active");
+		modalWindow.classList.remove("active");
+		modalUpload.classList.remove("active");
 	}
 });
 
 // appuie sur Ajouter une photo -> ouvre 2nde modale
-const modaleAjout = document.querySelector(".modaleAjout");
+const modalUpload = document.querySelector(".modalUpload");
 const btnAddPhoto = document.querySelector(".btnAddPhoto");
 btnAddPhoto.addEventListener("click", function () {
-	modaleWindow.classList.remove("active");
-	modaleAjout.classList.add("active");
+	modalWindow.classList.remove("active");
+	modalUpload.classList.add("active");
 });
 
 // croix 2nde modale -> ferme modale
-const croixMA = document.querySelector(".exitModaleAjout");
-croixMA.addEventListener("click", function () {
-	modaleBackground.classList.remove("active");
-	modaleWindow.classList.remove("active");
-	modaleAjout.classList.remove("active");
+const exitMA = document.querySelector(".exitModalUpload");
+exitMA.addEventListener("click", function () {
+	modalBackground.classList.remove("active");
+	modalWindow.classList.remove("active");
+	modalUpload.classList.remove("active");
 });
 
 // fleche retour -> revient sur 1ere modale
 const retour = document.querySelector(".fa-arrow-left");
 retour.addEventListener("click", function () {
-	modaleWindow.classList.add("active");
-	modaleAjout.classList.remove("active");
+	modalWindow.classList.add("active");
+	modalUpload.classList.remove("active");
 });
 ///////////////////////////////
 

@@ -316,7 +316,7 @@ footer li {
 /** MODALE GALERIE ********/
 /**************************/
 
-.modaleBackground {
+.modalBackground {
 	display: none;
 	justify-content: center;
 	align-items: center;
@@ -326,7 +326,7 @@ footer li {
   width: 100vw;
 	background-color: rgba(0, 0, 0, 0.3);
 }
-.modaleWindow {
+.modalWindow {
 	position: relative;
 	display: none;
 	flex-direction: column;
@@ -337,7 +337,7 @@ footer li {
 	border-radius: 10px;
 	padding: 45px 105px;
 }
-.modaleWindow > i {
+.modalWindow > i {
 	position: absolute;
 	top: 30px;
 	right: 30px;
@@ -350,17 +350,17 @@ h3 {
 	margin-top: 15px;
 	margin-bottom: 45px;
 }
-.modaleGallery {
+.modalGallery {
 	display: flex;
 	flex-flow: row wrap;
 	gap: 9px;
 	
 }
-.modaleWork {
+.modalWork {
 	position: relative;
 	margin-bottom: 21px;
 }
-.modaleWork img {
+.modalWork img {
 	height: 103px;
 	width: 77px;
 }
@@ -406,7 +406,7 @@ h3 {
 /** MODALE UPLOAD *********/
 /**************************/
 
-.modaleAjout {
+.modalUpload {
 	position: relative;
 	display: none;
 	flex-direction: column;
@@ -417,21 +417,21 @@ h3 {
 	border-radius: 10px;
 	padding: 45px 105px;
 }
-.modaleAjout .fa-xmark {
+.modalUpload .fa-xmark {
 	position: absolute;
 	top: 30px;
 	right: 30px;
 	font-size: 20px;
 	cursor: pointer;
 }
-.modaleAjout .fa-arrow-left {
+.modalUpload .fa-arrow-left {
 	position: absolute;
 	top: 30px;
 	left: 30px;
 	font-size: 20px;
 	cursor: pointer;
 }
-.modaleForm {
+.modalForm {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -490,7 +490,7 @@ h3 {
 	background-color: white;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-.modaleForm hr {
+.modalForm hr {
 	margin-top: 10px;
 }
 .btnSubmit {
