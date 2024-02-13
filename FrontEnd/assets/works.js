@@ -130,7 +130,7 @@ function fetchModale(works) {
 		modalGallery.appendChild(modalWork);
 
 		// clic sur icone trash id="i" -> suppr works[i]
-		document.getElementById(`${i}`).addEventListener("click", function () {
+		document.getElementById(`${i}`).addEventListener("click", async function () {
 			// e.preventDefault();
 			fetch("http://localhost:5678/api/works/" + works[i].id, {
 				method: "DELETE",
@@ -143,9 +143,12 @@ function fetchModale(works) {
 				if (response.ok) {
 					// on supprime l'element de la gallery
 					modalGallery.removeChild(modalWork);
-					fetchWork(works);
+					console.log("après remove");
 				}
 			});
+			const updateWorks = await fetch("http://localhost:5678/api/works")
+			.then((res) => res.json());
+			fetchWork(updateWorks);
 		});
 	};
 };
