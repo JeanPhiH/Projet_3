@@ -31,12 +31,11 @@ function loadCreatorInterface() {
 const works = await fetch("http://localhost:5678/api/works").then((res) =>
 	res.json()
 );
+const gallery = document.querySelector(".gallery");
 
 function fetchWork(works) {
+	gallery.innerHTML="";
 	for (let i = 0; i < works.length; i++) {
-		// Récupération de l'élément du DOM qui accueillera les réalisations
-		const gallery = document.querySelector(".gallery");
-
 		// chaque réalisation dans une balise figure pour la sémantique
 		const figure = document.createElement("figure");
 		// figure.dataset.id = works[i].id
@@ -71,7 +70,6 @@ function fetchCategories() {
 	tousButton.innerText = "Tous";
 	document.querySelector(".filters").appendChild(tousButton);
 	tousButton.addEventListener("click", function () {
-		document.querySelector(".gallery").innerHTML = "";
 		fetchWork(works);
 	});
 
@@ -86,7 +84,6 @@ function fetchCategories() {
 			const works_i = works.filter(function (work) {
 				return work.category.name === categories[i].name;
 			});
-			document.querySelector(".gallery").innerHTML = "";
 			fetchWork(works_i);
 		});
 	}
@@ -126,17 +123,24 @@ function fetchModale(works) {
 		modalGallery.appendChild(modalWork);
 
 		// clic sur icone trash id="i" -> suppr works[i]
-		document.getElementById(`${i}`).addEventListener("click", async function (e) {
-			e.preventDefault();
-			await fetch("http://localhost:5678/api/works/" + works[i].id, {
+		document.getElementById(`${i}`).addEventListener("click", function () {
+			// e.preventDefault();
+			fetch("http://localhost:5678/api/works/" + works[i].id, {
 				method: "DELETE",
 				headers: {
 					Authorization: "Bearer " + sessionStorage.getItem("token"),
 					"Content-Type": "application/json"
 				}
+			})
+			.then((response) => {
+				if (response.ok) {
+					// on supprime l'element de la gallery
+					modalGallery.removeChild(modalWork);
+					fetchWork(works);
+				}
 			});
-			modalGallery.innerHTML = "";
-			fetchModale(works);
+			// modalGallery.innerHTML = "";
+			// fetchModale(works);
 		});
 	};
 };
@@ -174,6 +178,47 @@ for (let i = 0; i < categories.length; i++) {
 	newOption.value = categories[i].name;
 	document.getElementById("catUpload").appendChild(newOption);
 }
+
+// Fetch post pour upload nouveau travail
+const btnSubmit = document.querySelector(".btnSubmit");
+btnSubmit.addEventListener("click", function (event) {
+	event.preventDefault();
+	const newWork = {
+		title: document.getElementById("titleUpload").value,
+		// category: {name: document.getElementById("catUpload").value},
+		category: 2,
+		imageUrl: imgSrc
+	};
+	const newWork_string = JSON.stringify(newWork);
+	// const formData = new FormData();
+	// formData.append('title', newWork.title);
+	// formData.append('category', newWork.category.name);
+	// formData.append('imageUrl', newWork.imageUrl);
+	fetch("http://localhost:5678/api/works", {
+		method: "POST",
+		headers: {
+			"Content-Type": "multipart/form-data",
+			Authorization: "Bearer " + sessionStorage.getItem("token")
+		},
+		body: newWork_string
+	})
+	.then(response => {
+		if (response.ok) {
+			return response.json();
+		} else {
+			throw new Error('File upload failed');
+		}
+	})
+	.then(data => {
+		console.log('Server response:', data);
+	})
+	.catch(error => {
+		console.error('Error uploading file:', error);
+	});
+	modalUpload.classList.remove("active");
+	modalGallery.innerHTML = "";
+	fetchModale(works);
+});	
 /////////////////////////////
 
 

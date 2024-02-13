@@ -241,6 +241,8 @@ nav img {
 	grid-row-gap: 20px;
 }
 .gallery img {
+	object-fit: cover;
+  height: 405px;
 	width: 100%;
 }
 figcaption {
