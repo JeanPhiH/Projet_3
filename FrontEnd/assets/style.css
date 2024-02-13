@@ -102,6 +102,9 @@ h2{
 .active {
 	display: flex !important;
 }
+.hidden {
+	visibility: hidden !important;
+}
 
 /**********/
 /* HEADER */
@@ -192,11 +195,10 @@ nav img {
 	cursor: pointer;
 }
 
-
 /* Boutons filtre */
 .filters {
-	display: inline-flex;
-	justify-content: space-between;
+	display: flex;
+	justify-content: center;
 	align-items: center;
 	gap: 10px;
 	height: 37px;

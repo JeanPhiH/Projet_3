@@ -1,6 +1,7 @@
 ////////////////////////////////
 // CHARGEMENT DU MODE EDITION //
 
+let filters = document.querySelector(".filters");
 // si un token et présent dans le sessionStorage, on execute la fonction loadCreatorInterface()
 if (sessionStorage.getItem("token")) {
 	loadCreatorInterface();
@@ -8,18 +9,24 @@ if (sessionStorage.getItem("token")) {
 
 function loadCreatorInterface() {
 	let logstate = document.querySelector(".logstate");
-	logstate.innerText = "Logout";
+	
 	// on désactive le lien vers login
+	logstate.innerText = "Logout";
 	logstate.href = "#";
+
 	// deconnection
-	logstate.addEventListener("click", function () {
-		sessionStorage.removeItem("token");
-		window.location.href = "index.html";
-	});
 	let modeEdition = document.querySelector(".mode-edition");
 	modeEdition.classList.add("active");
 	let modifier = document.querySelector(".modifier");
 	modifier.classList.add("active");
+	filters.classList.add("hidden");
+	logstate.addEventListener("click", function () {
+		if (logstate.innerText === "Logout") {
+			sessionStorage.clear();
+			filters.classList.remove("hidden");
+			window.location.href = "index.html";
+		};
+	});
 }
 ////////////////////////////////
 
@@ -27,14 +34,13 @@ function loadCreatorInterface() {
 
 /////////////////////////////////////
 // GENERATION DYNAMIQUE DE GALLERY //
-let works
 const gallery = document.querySelector(".gallery");
+const allWorks = await fetch("http://localhost:5678/api/works")
+.then((res) => res.json());
+fetchWork(allWorks);
 
-async function fetchWork(works) {
+function fetchWork(works) {
 	gallery.innerHTML="";
-	works = await fetch("http://localhost:5678/api/works").then((res) =>
-		res.json()
-	);
 	for (let i = 0; i < works.length; i++) {
 		// chaque réalisation dans une balise figure pour la sémantique
 		const figure = document.createElement("figure");
@@ -52,7 +58,6 @@ async function fetchWork(works) {
 	}
 }
 
-fetchWork(works);
 /////////////////////////////////////
 
 
@@ -68,24 +73,24 @@ function fetchCategories() {
 	// Bouton TOUS pour tout afficher
 	const tousButton = document.createElement("button");
 	tousButton.innerText = "Tous";
-	document.querySelector(".filters").appendChild(tousButton);
+	filters.appendChild(tousButton);
 	tousButton.addEventListener("click", function () {
 		gallery.innerHTML = "";
-		fetchWork(works);
+		fetchWork(allWorks);
 	});
 
 	for (let i = 0; i < categories.length; i++) {
 		// on crée un bouton pour chaque catégorie
 		const newButton = document.createElement("button");
 		newButton.innerText = categories[i].name;
-		document.querySelector(".filters").appendChild(newButton);
+		filters.appendChild(newButton);
 
 		// on affiche la catégorie filtrée
 		newButton.addEventListener("click", function () {
-			const works_i = works.filter(function (work) {
+			const works_i = allWorks.filter(function (work) {
 				return work.category.name === categories[i].name;
 			});
-			document.querySelector(".gallery").innerHTML = "";
+			gallery.innerHTML = "";
 			fetchWork(works_i);
 		});
 	}
@@ -101,11 +106,7 @@ fetchCategories();
 
 const modalGallery = document.querySelector(".modalGallery");
 
-async function fetchModale(works) {
-	modalGallery.innerHTML="";
-	works = await fetch("http://localhost:5678/api/works").then((res) =>
-		res.json()
-	);
+function fetchModale(works) {
 	for (let i = 0; i < works.length; i++) {
 		//on crée l'arboresscence suivante:
 		//<div class="modalWork"> <img src="imageUrl"> <div class="trash"> <i id="i" class="fa-solid fa-trash-alt"></i> </div> </div>
@@ -221,7 +222,7 @@ btnSubmit.addEventListener("click", function (event) {
 	});
 	modalUpload.classList.remove("active");
 	modalGallery.innerHTML = "";
-	fetchModale(works);
+	fetchModale(allWorks);
 });	
 ///////////////////
 
@@ -237,7 +238,7 @@ modifier.addEventListener("click", function () {
 	modalBackground.classList.add("active");
 	modalWindow.classList.add("active");
 	modalGallery.innerHTML = "";
-	fetchModale(works);
+	fetchModale(allWorks);
 });
 
 // appuie sur la croix -> ferme la modale
@@ -284,4 +285,4 @@ retour.addEventListener("click", function () {
 
 
 
-// console.log(works);
+// console.log(allWorks);
