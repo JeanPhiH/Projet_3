@@ -159,13 +159,16 @@ function fetchModale(works) {
 ///////////////////
 // MODALE UPLOAD //
 
-// IMAGE UPLOAD
-
 const uploadBox = document.querySelector(".uploadBox")
 const btnUpload = document.querySelector(".btnUpload");
 const inputFile = document.getElementById("inputFile");
+const titleUpload = document.getElementById("titleUpload");
+const catUpload = document.getElementById("catUpload");
 const imgUpload = document.createElement("img");
 imgUpload.classList.add("imgUpload");
+
+// IMAGE UPLOAD
+
 let imgSrc;
 
 let imgUrl = inputFile.addEventListener('change', () => {
@@ -192,41 +195,35 @@ for (let i = 0; i < categories.length; i++) {
 const btnSubmit = document.querySelector(".btnSubmit");
 btnSubmit.addEventListener("click", async function (event) {
 	event.preventDefault();
-	const newWork = {
-		title: document.getElementById("titleUpload").value,
-		category: {name: document.getElementById("catUpload").value},
-		imageUrl: imgUrl
-	};
-	const newWork_string = JSON.stringify(newWork);
-	// const formData = new FormData();
-	// formData.append('title', newWork.title);
-	// formData.append('category', newWork.category.name);
-	// formData.append('imageUrl', newWork.imageUrl);
-	await fetch("http://localhost:5678/api/works", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			"Authorization": "Bearer " + sessionStorage.getItem("token")
-		},
-		body: newWork_string
-	})
-	.then(async (response) => {
-		if (!response.ok) {throw new Error('Formulaire mal rempli !')};
-		alert("Travail ajouté avec succès");
-		return response.json();			
-	})
-	.then(data => {
-		console.log('Server response:', data);
-	})
-	.catch(error => {
-		alert('Erreur: ', error);
-	});
-	// modalUpload.classList.remove("active");
-	// gallery.innerHTML = "";
-	// const addWorks = await fetch("http://localhost:5678/api/works")
-	// .then((res) => res.json());
-	// fetchWork(addWorks);
-});	
+		let formData = new FormData();
+		formData.append('title', titleUpload.value);
+		formData.append('category', catUpload.value);
+		formData.append('image', inputFile.files[0]);
+		// New fetch to post new work
+		await fetch('http://localhost:5678/api/works', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+			},
+			body: formData
+		})
+		.then(async (response) => {
+			if (!response.ok) {throw new Error(response.status)};
+			return response.json();
+		})
+		.then(async (data) => {
+			console.log(data);
+		})
+		.catch((error) => {
+			console.log(error);
+		})
+		// modalUpload.classList.remove("active");
+		// gallery.innerHTML = "";
+		// const addWorks = await fetch("http://localhost:5678/api/works")
+		// .then((res) => res.json());
+		// fetchWork(addWorks);
+});
 ///////////////////
 
 
