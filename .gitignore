@@ -1,5 +1,5 @@
 .idea
 .vscode
 *.code-workspace
+Backend/*
 
-Backend/images/*
