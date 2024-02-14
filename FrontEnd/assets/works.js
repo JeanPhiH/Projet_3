@@ -1,8 +1,8 @@
-////////////////////////////////
-// CHARGEMENT DU MODE EDITION //
+//////////////////////////
+// LOAD OF EDITION MODE //
 
 let filters = document.querySelector(".filters");
-// si un token et présent dans le sessionStorage, on execute la fonction loadCreatorInterface()
+// if a token is present in sessionStorage, execution of loadCreatorInterface()
 if (sessionStorage.getItem("token")) {
 	loadCreatorInterface();
 }
@@ -10,7 +10,7 @@ if (sessionStorage.getItem("token")) {
 function loadCreatorInterface() {
 	let logstate = document.querySelector(".logstate");
 	
-	// on désactive le lien vers login
+	// deactivation of the login link
 	logstate.innerText = "Logout";
 	logstate.href = "#";
 
@@ -32,26 +32,26 @@ function loadCreatorInterface() {
 
 
 
-/////////////////////////////////////
-// GENERATION DYNAMIQUE DE GALLERY //
+////////////////////////////////
+// DYNAMIC LOADING OF GALLERY //
+
 const gallery = document.querySelector(".gallery");
 const allWorks = await fetch("http://localhost:5678/api/works")
 .then((res) => res.json());
 fetchWork(allWorks);
 
+// fetch GET works in Gallery
 function fetchWork(works) {
 	gallery.innerHTML="";
 	for (let i = 0; i < works.length; i++) {
-		// chaque réalisation dans une balise figure pour la sémantique
 		const figure = document.createElement("figure");
-		// figure.dataset.id = works[i].id
 		const img = document.createElement("img");
 		img.src = works[i].imageUrl;
 		img.alt = works[i].title;
 		const figcaption = document.createElement("figcaption");
 		figcaption.innerText = works[i].title;
 
-		// ajout des éléments créés à l'arborescence HTML
+		// add elements
 		gallery.appendChild(figure);
 		figure.appendChild(img);
 		figure.appendChild(figcaption);
@@ -62,15 +62,15 @@ function fetchWork(works) {
 
 
 
-/////////////////////////////////////////
-// AJOUT DYNAMIQUE DES BOUTONS FILTRES //
+///////////////////////////////////////
+// DYNAMIC ADDING OF FILTERS BUTTONS //
 
 const categories = await fetch("http://localhost:5678/api/categories").then(
 	(res) => res.json()
 );
 
 function fetchCategories() {
-	// Bouton TOUS pour tout afficher
+	// button TOUS to load all the works
 	const tousButton = document.createElement("button");
 	tousButton.innerText = "Tous";
 	filters.appendChild(tousButton);
@@ -80,12 +80,12 @@ function fetchCategories() {
 	});
 
 	for (let i = 0; i < categories.length; i++) {
-		// on crée un bouton pour chaque catégorie
+		// creation of a button for each category
 		const newButton = document.createElement("button");
 		newButton.innerText = categories[i].name;
 		filters.appendChild(newButton);
 
-		// on affiche la catégorie filtrée
+		// display of the filtered category
 		newButton.addEventListener("click", function () {
 			const works_i = allWorks.filter(function (work) {
 				return work.category.name === categories[i].name;
@@ -101,14 +101,14 @@ fetchCategories();
 
 
 
-////////////////////
-// MODALE GALLERY //
+///////////////////
+// MODAL GALLERY //
 
 const modalGallery = document.querySelector(".modalGallery");
 
 function fetchModale(works) {
 	for (let i = 0; i < works.length; i++) {
-		//on crée l'arboresscence suivante:
+		// creation of the following tree:
 		//<div class="modalWork"> <img src="imageUrl"> <div class="trash"> <i id="i" class="fa-solid fa-trash-alt"></i> </div> </div>
 		const modalWork = document.createElement("div");
 		modalWork.classList.add("modalWork");
@@ -129,9 +129,8 @@ function fetchModale(works) {
 		modalWork.appendChild(divTrash);
 		modalGallery.appendChild(modalWork);
 
-		// clic sur icone trash id="i" -> suppr works[i]
+		// clic on trash icon id="i" -> del works[i]
 		document.getElementById(`${i}`).addEventListener("click", async function () {
-			// e.preventDefault();
 			fetch("http://localhost:5678/api/works/" + works[i].id, {
 				method: "DELETE",
 				headers: {
@@ -141,7 +140,7 @@ function fetchModale(works) {
 			})
 			.then((response) => {
 				if (response.ok) {
-					// on supprime l'element de la gallery
+					// deletion of the element from the modal gallery
 					modalGallery.removeChild(modalWork);
 					console.log("après remove");
 				}
@@ -156,8 +155,8 @@ function fetchModale(works) {
 
 
 
-///////////////////
-// MODALE UPLOAD //
+//////////////////
+// MODAL UPLOAD //
 
 const uploadBox = document.querySelector(".uploadBox")
 const btnUpload = document.querySelector(".btnUpload");
@@ -184,26 +183,26 @@ let imgUrl = inputFile.addEventListener('change', () => {
 // CATEGORIES UPLOAD
 
 for (let i = 0; i < categories.length; i++) {
-	// on crée une option dans select pour chaque catégorie
+	// creation of <option> in <select> for each category
 	const newOption = document.createElement("option");
 	newOption.innerText = categories[i].name;
-	newOption.value = categories[i].name;
+	newOption.value = categories[i].id;
 	document.getElementById("catUpload").appendChild(newOption);
 }
 
-// Fetch post pour upload nouveau travail
+// Fetch POST to upload a new work
 const btnSubmit = document.querySelector(".btnSubmit");
 btnSubmit.addEventListener("click", async function (event) {
 	event.preventDefault();
 		let formData = new FormData();
 		formData.append('title', titleUpload.value);
-		formData.append('category', catUpload.value);
+		formData.append('category', Number(catUpload.value));
 		formData.append('image', inputFile.files[0]);
-		// New fetch to post new work
+		console.log(Number(catUpload.value));
+		
 		await fetch('http://localhost:5678/api/works', {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'multipart/form-data',
 				'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
 			},
 			body: formData
