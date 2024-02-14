@@ -175,6 +175,7 @@ let imgUrl = inputFile.addEventListener('change', () => {
 	uploadBox.innerText = "";
 	uploadBox.style.height = "170px";
 	uploadBox.appendChild(imgUpload);
+	return imgSrc;
 });
 
 // CATEGORIES UPLOAD
@@ -189,43 +190,42 @@ for (let i = 0; i < categories.length; i++) {
 
 // Fetch post pour upload nouveau travail
 const btnSubmit = document.querySelector(".btnSubmit");
-btnSubmit.addEventListener("click", function (event) {
+btnSubmit.addEventListener("click", async function (event) {
 	event.preventDefault();
 	const newWork = {
 		title: document.getElementById("titleUpload").value,
-		// category: {name: document.getElementById("catUpload").value},
-		category: 2,
-		imageUrl: imgSrc
+		category: {name: document.getElementById("catUpload").value},
+		imageUrl: imgUrl
 	};
 	const newWork_string = JSON.stringify(newWork);
 	// const formData = new FormData();
 	// formData.append('title', newWork.title);
 	// formData.append('category', newWork.category.name);
 	// formData.append('imageUrl', newWork.imageUrl);
-	fetch("http://localhost:5678/api/works", {
+	await fetch("http://localhost:5678/api/works", {
 		method: "POST",
 		headers: {
-			"Content-Type": "multipart/form-data",
-			Authorization: "Bearer " + sessionStorage.getItem("token")
+			"Content-Type": "application/json",
+			"Authorization": "Bearer " + sessionStorage.getItem("token")
 		},
 		body: newWork_string
 	})
-	.then(response => {
-		if (response.ok) {
-			return response.json();
-		} else {
-			throw new Error('File upload failed');
-		}
+	.then(async (response) => {
+		if (!response.ok) {throw new Error('Formulaire mal rempli !')};
+		alert("Travail ajouté avec succès");
+		return response.json();			
 	})
 	.then(data => {
 		console.log('Server response:', data);
 	})
 	.catch(error => {
-		console.error('Error uploading file:', error);
+		alert('Erreur: ', error);
 	});
-	modalUpload.classList.remove("active");
-	modalGallery.innerHTML = "";
-	fetchModale(allWorks);
+	// modalUpload.classList.remove("active");
+	// gallery.innerHTML = "";
+	// const addWorks = await fetch("http://localhost:5678/api/works")
+	// .then((res) => res.json());
+	// fetchWork(addWorks);
 });	
 ///////////////////
 
