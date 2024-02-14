@@ -41,6 +41,7 @@ fetchWork(allWorks);
 
 // fetch GET works in Gallery
 function fetchWork(works) {
+	console.log("fct fetchWork activée");
 	gallery.innerHTML = "";
 	for (let i = 0; i < works.length; i++) {
 		const figure = document.createElement("figure");
@@ -56,7 +57,6 @@ function fetchWork(works) {
 		figure.appendChild(figcaption);
 	}
 }
-
 /////////////////////////////////////
 
 ///////////////////////////////////////
@@ -92,7 +92,6 @@ function fetchCategories() {
 		});
 	}
 }
-
 fetchCategories();
 /////////////////////////////////////////
 
@@ -101,7 +100,9 @@ fetchCategories();
 
 const modalGallery = document.querySelector(".modalGallery");
 
-function fetchModale(works) {
+function fetchModal(works) {
+	console.log("fct fetchModal activée");
+	modalGallery.innerHTML = "";
 	for (let i = 0; i < works.length; i++) {
 		// creation of the following tree:
 		//<div class="modalWork"> <img src="imageUrl"> <div class="trash"> <i id="i" class="fa-solid fa-trash-alt"></i> </div> </div>
@@ -124,7 +125,7 @@ function fetchModale(works) {
 		modalWork.appendChild(divTrash);
 		modalGallery.appendChild(modalWork);
 
-		// clic on trash icon id="i" -> del works[i]
+		// fetch DELETE: clic on trash icon id="i" -> del works[i]
 		document
 			.getElementById(`${i}`)
 			.addEventListener("click", async function () {
@@ -136,14 +137,16 @@ function fetchModale(works) {
 					},
 				}).then((response) => {
 					if (response.ok) {
-						// deletion of the element from the modal gallery
+						// delete the element from the modal gallery
 						modalGallery.removeChild(modalWork);
 					}
 				});
 				const updateWorks = await fetch("http://localhost:5678/api/works").then(
 					(res) => res.json()
 				);
+				console.log("updateWorks");
 				fetchWork(updateWorks);
+				fetchModal(updateWorks);
 			});
 	}
 }
@@ -224,23 +227,24 @@ btnSubmit.addEventListener("click", async function (event) {
 			res.json()
 		);
 		fetchWork(addWorks);
+		fetchModal(addWorks);
 });
 ///////////////////
 
 ///////////////////
 // MODAL BUTTONS //
 
-// appuie sur le bouton "modifier" -> affiche la modale
+// button "modifier" -> open modal gallery
 const modifier = document.querySelector(".modifier");
 const modalWindow = document.querySelector(".modalWindow");
 modifier.addEventListener("click", function () {
 	modalBackground.classList.add("active");
 	modalWindow.classList.add("active");
 	modalGallery.innerHTML = "";
-	fetchModale(allWorks);
+	fetchModal(allWorks);
 });
 
-// appuie sur la croix -> ferme la modale
+// cross clic -> close the modal
 const exitMW = document.querySelector(".exitModalWindow");
 exitMW.addEventListener("click", function () {
 	modalBackground.classList.remove("active");
@@ -248,7 +252,7 @@ exitMW.addEventListener("click", function () {
 	modalUpload.classList.remove("active");
 });
 
-// appuie sur le background -> ferme la modale
+// background clic -> close the modal
 const modalBackground = document.querySelector(".modalBackground");
 modalBackground.addEventListener("click", function (event) {
 	if (event.target === modalBackground) {
@@ -258,7 +262,7 @@ modalBackground.addEventListener("click", function (event) {
 	}
 });
 
-// appuie sur Ajouter une photo -> ouvre 2nde modale
+// clic on "Ajouter une photo" -> open modal upload
 const modalUpload = document.querySelector(".modalUpload");
 const btnAddPhoto = document.querySelector(".btnAddPhoto");
 btnAddPhoto.addEventListener("click", function () {
@@ -266,7 +270,7 @@ btnAddPhoto.addEventListener("click", function () {
 	modalUpload.classList.add("active");
 });
 
-// croix 2nde modale -> ferme modale
+// modal upload cross -> close the modal
 const exitMA = document.querySelector(".exitModalUpload");
 exitMA.addEventListener("click", function () {
 	modalBackground.classList.remove("active");
@@ -274,7 +278,7 @@ exitMA.addEventListener("click", function () {
 	modalUpload.classList.remove("active");
 });
 
-// fleche retour -> revient sur 1ere modale
+// left arrow -> return on modal gallery
 const retour = document.querySelector(".fa-arrow-left");
 retour.addEventListener("click", function () {
 	modalWindow.classList.add("active");
