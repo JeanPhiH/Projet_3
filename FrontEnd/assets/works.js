@@ -22,8 +22,6 @@ function generateGallery(works) {
 
 // fetch GET works in Gallery
 function fetchWork() {
-	console.log("fct fetchWork activée");
-	// gallery.innerHTML = "";
 	fetch("http://localhost:5678/api/works")
 	.then((res) => res.json())
 	.then((works) => {
@@ -82,6 +80,7 @@ function loadCreatorInterface() {
 	// deactivation of the login link
 	logstate.innerText = "Logout";
 	logstate.href = "#";
+
 	fetchWork();
 
 	// deconnection
@@ -89,11 +88,9 @@ function loadCreatorInterface() {
 	modeEdition.classList.add("active");
 	let modifier = document.querySelector(".modifier");
 	modifier.classList.add("active");
-	filters.classList.add("hidden");
 	logstate.addEventListener("click", function () {
 		if (logstate.innerText === "Logout") {
 			sessionStorage.clear();
-			filters.classList.remove("hidden");
 			window.location.href = "index.html";
 		}
 	});
@@ -152,7 +149,6 @@ function generateModalGallery(works) {
 }
 
 function fetchModal() {
-	console.log("fct fetchModal activée");
 	modalGallery.innerHTML = "";
 	fetch("http://localhost:5678/api/works")
 	.then((res) => res.json())
@@ -195,6 +191,13 @@ let imgUrl = inputFile.addEventListener("change", () => {
 
 // CATEGORIES UPLOAD
 function uploadCategories() {
+	catUpload.innerHTML = "";
+	let tousOption = document.createElement("option");
+	tousOption.innerText = "";
+	tousOption.value = "";
+	tousOption.disabled = true;
+	tousOption.selected = true;
+	catUpload.appendChild(tousOption);
 	fetch("http://localhost:5678/api/categories")
 	.then(res => res.json())
 	.then((categories) => {
@@ -208,17 +211,39 @@ function uploadCategories() {
 	})
 };
 
-// Fetch POST to upload a new work
+// button "Valider" activation
+let modalForm = document.querySelector(".modalForm");
 const btnSubmit = document.querySelector(".btnSubmit");
-btnSubmit.addEventListener("click", async function (event) {
-	event.preventDefault();
-	let formData = new FormData();
-	formData.append("title", titleUpload.value);
-	formData.append("category", Number(catUpload.value));
-	formData.append("image", inputFile.files[0]);
-	fetchPost(formData);
+modalForm.addEventListener("input", function () {
+	if (!titleUpload.value == "" && !catUpload.value == "" && !inputFile.value == "") {
+		btnSubmit.classList.add("btnSubmitValid");
+	}
 });
 
+// VERIFYING FORM DATAS
+btnSubmit.addEventListener("click", function (event) {
+	event.preventDefault();
+	if (titleUpload.value == "" || catUpload.value == "" || inputFile.value == "") {
+		alert("Veuillez renseigner tous les champs");
+		uploadBox.style.border = "1px solid red";
+		let titleUploadLabel = document.querySelector('label[for="titleUpload"]');
+		let catUploadLabel = document.querySelector('label[for="catUpload"]');
+		titleUploadLabel.innerText = "Titre -> Champ obligatoire";
+		titleUploadLabel.style.color = "red";
+		titleUploadLabel.style.fontWeight = "bold";
+		catUploadLabel.innerText = "Catégories -> Champ obligatoire";
+		catUploadLabel.style.color = "red";
+		catUploadLabel.style.fontWeight = "bold";
+	} else {
+		let formData = new FormData();
+		formData.append("title", titleUpload.value);
+		formData.append("category", Number(catUpload.value));
+		formData.append("image", inputFile.files[0]);
+		fetchPost(formData);
+	}
+});
+
+// Fetch POST to upload a new work
 async function fetchPost(formData) {
 	await fetch("http://localhost:5678/api/works", {
 		method: "POST",
@@ -228,28 +253,27 @@ async function fetchPost(formData) {
 		body: formData,
 	})
 		.then(async (response) => {
-			// console.log("1er then: ", response);
-			if (!response.ok) {
-				throw new Error(response.status);
+			if (response.ok) {
+				alert(titleUpload.value + " ajouté à la galerie.");
+				imgUpload.remove();
+				Array.from(uploadBox.children).forEach(child => {
+					child.classList.remove("hidden");
+				});
+				inputFile.value = "";
+				titleUpload.value = "";
+				catUpload.value = "";
+				btnSubmit.classList.remove("btnSubmitValid");
+				modalUpload.classList.remove("active");
+				modalBackground.classList.remove("active");
+				fetchWork();
+				fetchModal();
+			} else {
+				alert("Formulaire mal rempli");
 			}
-			// console.log("1er then .json: ", response.json());
-			// return response.json();
 		})
 		.catch((error) => {
 			console.log(error);
 		});
-		imgUpload.remove();
-		Array.from(uploadBox.children).forEach(child => {
-			child.classList.remove("hidden");
-		});
-		inputFile.value = "";
-		titleUpload.value = "";
-		catUpload.value = "";
-		modalUpload.classList.remove("active");
-		modalBackground.classList.remove("active");
-		
-		fetchWork();
-		fetchModal();
 };
 
 ///////////////////
@@ -291,6 +315,14 @@ const btnAddPhoto = document.querySelector(".btnAddPhoto");
 btnAddPhoto.addEventListener("click", function () {
 	modalWindow.classList.remove("active");
 	modalUpload.classList.add("active");
+	imgUpload.remove();
+	Array.from(uploadBox.children).forEach(child => {
+		child.classList.remove("hidden");
+	});
+	inputFile.value = "";
+	titleUpload.value = "";
+	catUpload.value = "";
+	btnSubmit.classList.remove("btnSubmitValid");
 	uploadCategories();
 });
 

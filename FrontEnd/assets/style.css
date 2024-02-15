@@ -295,7 +295,7 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 input[type="submit"]:hover {
-	background-color: black;
+	background-color: #0E2F28;
 }
 
 /**********/
@@ -403,7 +403,7 @@ h3 {
 	border-radius: 60px ;
 }
 .btnAddPhoto:hover {
-	background-color: black;
+	background-color: #0E2F28;
 }
 
 /*****************/
@@ -501,14 +501,18 @@ h3 {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
-	background-color: var(--main-color);
-	border: 1px solid var(--main-color);
 	margin-top: 38px;
 	width: 237px;
 	height: 36px;
 	text-align: center;
 	border-radius: 60px ;
+	background-color: #a7a7a7;
+	border: 1px solid #a7a7a7;
+}
+.btnSubmitValid {
+	background-color: var(--main-color);
+	border: 1px solid var(--main-color);
 }
 .btnSubmit:hover {
-	background-color: black;
+	background-color: #0E2F28;
 }

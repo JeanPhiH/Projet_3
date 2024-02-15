@@ -182,7 +182,7 @@ form button {
 	height: 36px;
 }
 form button:hover {
-	background-color: black;
+	background-color: #0E2F28;
 }
 form p {
 	text-decoration: underline;
