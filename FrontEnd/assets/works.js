@@ -1,10 +1,79 @@
-//////////////////////////
-// LOAD OF EDITION MODE //
+////////////////////////////////
+// DYNAMIC LOADING OF GALLERY //
+
+const gallery = document.querySelector(".gallery");
+
+function generateGallery(works) {
+	gallery.innerHTML = "";
+	for (let i = 0; i < works.length; i++) {
+		const figure = document.createElement("figure");
+		const img = document.createElement("img");
+		img.src = works[i].imageUrl;
+		img.alt = works[i].title;
+		const figcaption = document.createElement("figcaption");
+		figcaption.innerText = works[i].title;
+
+		// add elements
+		gallery.appendChild(figure);
+		figure.appendChild(img);
+		figure.appendChild(figcaption);
+	}
+}
+
+// fetch GET works in Gallery
+function fetchWork() {
+	console.log("fct fetchWork activée");
+	// gallery.innerHTML = "";
+	fetch("http://localhost:5678/api/works")
+	.then((res) => res.json())
+	.then((works) => {
+		generateGallery(works);
+	})
+}	
+/////////////////////////////////////
+
+/////////////////////////////
+// DYNAMIC FILTERS BUTTONS //
+
+async function fetchCategories() {
+	let works = await fetch("http://localhost:5678/api/works").then((res) => res.json());
+	fetch("http://localhost:5678/api/categories")
+	.then(res => res.json())
+	.then((categories) => {
+		// button TOUS to load all the works
+		const tousButton = document.createElement("button");
+		tousButton.innerText = "Tous";
+		filters.appendChild(tousButton);
+		tousButton.addEventListener("click", function () {
+			fetchWork();
+		});
+		for (let i = 0; i < categories.length; i++) {
+			// creation of a button for each category
+			const newButton = document.createElement("button");
+			newButton.innerText = categories[i].name;
+			filters.appendChild(newButton);
+
+			// display of the filtered category
+			newButton.addEventListener("click", function () {
+				const works_i = works.filter(function (work) {
+					return work.category.name === categories[i].name;
+				});
+				generateGallery(works_i);
+			});
+	}
+})};
+/////////////////////////////////////////
+
+/////////////////////////////
+// LOADING OF EDITION MODE //
 
 let filters = document.querySelector(".filters");
 // if a token is present in sessionStorage, execution of loadCreatorInterface()
 if (sessionStorage.getItem("token")) {
 	loadCreatorInterface();
+} else {
+	fetchWork();
+	fetchCategories();
 }
 
 function loadCreatorInterface() {
@@ -13,6 +82,7 @@ function loadCreatorInterface() {
 	// deactivation of the login link
 	logstate.innerText = "Logout";
 	logstate.href = "#";
+	fetchWork();
 
 	// deconnection
 	let modeEdition = document.querySelector(".mode-edition");
@@ -30,79 +100,13 @@ function loadCreatorInterface() {
 }
 ////////////////////////////////
 
-////////////////////////////////
-// DYNAMIC LOADING OF GALLERY //
-
-const gallery = document.querySelector(".gallery");
-const allWorks = await fetch("http://localhost:5678/api/works").then((res) =>
-	res.json()
-);
-fetchWork(allWorks);
-
-// fetch GET works in Gallery
-function fetchWork(works) {
-	console.log("fct fetchWork activée");
-	gallery.innerHTML = "";
-	for (let i = 0; i < works.length; i++) {
-		const figure = document.createElement("figure");
-		const img = document.createElement("img");
-		img.src = works[i].imageUrl;
-		img.alt = works[i].title;
-		const figcaption = document.createElement("figcaption");
-		figcaption.innerText = works[i].title;
-
-		// add elements
-		gallery.appendChild(figure);
-		figure.appendChild(img);
-		figure.appendChild(figcaption);
-	}
-}
-/////////////////////////////////////
-
-///////////////////////////////////////
-// DYNAMIC ADDING OF FILTERS BUTTONS //
-
-const categories = await fetch("http://localhost:5678/api/categories").then(
-	(res) => res.json()
-);
-
-function fetchCategories() {
-	// button TOUS to load all the works
-	const tousButton = document.createElement("button");
-	tousButton.innerText = "Tous";
-	filters.appendChild(tousButton);
-	tousButton.addEventListener("click", function () {
-		gallery.innerHTML = "";
-		fetchWork(allWorks);
-	});
-
-	for (let i = 0; i < categories.length; i++) {
-		// creation of a button for each category
-		const newButton = document.createElement("button");
-		newButton.innerText = categories[i].name;
-		filters.appendChild(newButton);
-
-		// display of the filtered category
-		newButton.addEventListener("click", function () {
-			const works_i = allWorks.filter(function (work) {
-				return work.category.name === categories[i].name;
-			});
-			gallery.innerHTML = "";
-			fetchWork(works_i);
-		});
-	}
-}
-fetchCategories();
-/////////////////////////////////////////
 
 ///////////////////
 // MODAL GALLERY //
 
 const modalGallery = document.querySelector(".modalGallery");
 
-function fetchModal(works) {
-	console.log("fct fetchModal activée");
-	modalGallery.innerHTML = "";
+function generateModalGallery(works) {
 	for (let i = 0; i < works.length; i++) {
 		// creation of the following tree:
 		//<div class="modalWork"> <img src="imageUrl"> <div class="trash"> <i id="i" class="fa-solid fa-trash-alt"></i> </div> </div>
@@ -127,30 +131,37 @@ function fetchModal(works) {
 
 		// fetch DELETE: clic on trash icon id="i" -> del works[i]
 		document
-			.getElementById(`${i}`)
-			.addEventListener("click", async function () {
-				fetch("http://localhost:5678/api/works/" + works[i].id, {
-					method: "DELETE",
-					headers: {
-						Authorization: "Bearer " + sessionStorage.getItem("token"),
-						"Content-Type": "application/json",
-					},
-				}).then((response) => {
-					if (response.ok) {
-						// delete the element from the modal gallery
-						modalGallery.removeChild(modalWork);
-					}
-				});
-				const updateWorks = await fetch("http://localhost:5678/api/works").then(
-					(res) => res.json()
-				);
-				console.log("updateWorks");
-				fetchWork(updateWorks);
-				fetchModal(updateWorks);
+		.getElementById(`${i}`)
+		.addEventListener("click", async function () {
+			await fetch("http://localhost:5678/api/works/" + works[i].id, {
+				method: "DELETE",
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem("token"),
+					"Content-Type": "application/json",
+			},
+			}).then((response) => {
+				if (response.ok) {
+					// delete the element from the modal gallery
+					modalGallery.removeChild(modalWork);
+				}
 			});
+			fetchWork();
+			fetchModal();
+		});
 	}
 }
+
+function fetchModal() {
+	console.log("fct fetchModal activée");
+	modalGallery.innerHTML = "";
+	fetch("http://localhost:5678/api/works")
+	.then((res) => res.json())
+	.then((works) => {
+		generateModalGallery(works);
+	});
+}
 ////////////////////
+
 
 //////////////////
 // MODAL UPLOAD //
@@ -173,7 +184,9 @@ let imgUrl = inputFile.addEventListener("change", () => {
 	} else {
 		imgSrc = URL.createObjectURL(imgFile);
 		imgUpload.src = imgSrc;
-		uploadBox.innerText = "";
+		Array.from(uploadBox.children).forEach(child => {
+			child.classList.add("hidden");
+		});
 		uploadBox.style.height = "170px";
 		uploadBox.appendChild(imgUpload);
 		return imgSrc;
@@ -181,14 +194,19 @@ let imgUrl = inputFile.addEventListener("change", () => {
 });
 
 // CATEGORIES UPLOAD
-
-for (let i = 0; i < categories.length; i++) {
-	// creation of <option> in <select> for each category
-	const newOption = document.createElement("option");
-	newOption.innerText = categories[i].name;
-	newOption.value = categories[i].id;
-	document.getElementById("catUpload").appendChild(newOption);
-}
+function uploadCategories() {
+	fetch("http://localhost:5678/api/categories")
+	.then(res => res.json())
+	.then((categories) => {
+		for (let i = 0; i < categories.length; i++) {
+			// creation of <option> in <select> for each category
+			const newOption = document.createElement("option");
+			newOption.innerText = categories[i].name;
+			newOption.value = categories[i].id;
+			document.getElementById("catUpload").appendChild(newOption);
+		}
+	})
+};
 
 // Fetch POST to upload a new work
 const btnSubmit = document.querySelector(".btnSubmit");
@@ -198,7 +216,10 @@ btnSubmit.addEventListener("click", async function (event) {
 	formData.append("title", titleUpload.value);
 	formData.append("category", Number(catUpload.value));
 	formData.append("image", inputFile.files[0]);
+	fetchPost(formData);
+});
 
+async function fetchPost(formData) {
 	await fetch("http://localhost:5678/api/works", {
 		method: "POST",
 		headers: {
@@ -217,18 +238,20 @@ btnSubmit.addEventListener("click", async function (event) {
 		.catch((error) => {
 			console.log(error);
 		});
+		imgUpload.remove();
+		Array.from(uploadBox.children).forEach(child => {
+			child.classList.remove("hidden");
+		});
 		inputFile.value = "";
 		titleUpload.value = "";
 		catUpload.value = "";
 		modalUpload.classList.remove("active");
 		modalBackground.classList.remove("active");
-		gallery.innerHTML = "";
-		const addWorks = await fetch("http://localhost:5678/api/works").then((res) =>
-			res.json()
-		);
-		fetchWork(addWorks);
-		fetchModal(addWorks);
-});
+		
+		fetchWork();
+		fetchModal();
+};
+
 ///////////////////
 
 ///////////////////
@@ -241,7 +264,7 @@ modifier.addEventListener("click", function () {
 	modalBackground.classList.add("active");
 	modalWindow.classList.add("active");
 	modalGallery.innerHTML = "";
-	fetchModal(allWorks);
+	fetchModal();
 });
 
 // cross clic -> close the modal
@@ -268,6 +291,7 @@ const btnAddPhoto = document.querySelector(".btnAddPhoto");
 btnAddPhoto.addEventListener("click", function () {
 	modalWindow.classList.remove("active");
 	modalUpload.classList.add("active");
+	uploadCategories();
 });
 
 // modal upload cross -> close the modal
@@ -285,5 +309,3 @@ retour.addEventListener("click", function () {
 	modalUpload.classList.remove("active");
 });
 /////////////////////
-
-// console.log(allWorks);
