@@ -23,43 +23,46 @@ function generateGallery(works) {
 // fetch GET works in Gallery
 function fetchWork() {
 	fetch("http://localhost:5678/api/works")
-	.then((res) => res.json())
-	.then((works) => {
-		generateGallery(works);
-	})
-}	
+		.then((res) => res.json())
+		.then((works) => {
+			generateGallery(works);
+		});
+}
 /////////////////////////////////////
 
 /////////////////////////////
 // DYNAMIC FILTERS BUTTONS //
 
 async function fetchCategories() {
-	let works = await fetch("http://localhost:5678/api/works").then((res) => res.json());
+	let works = await fetch("http://localhost:5678/api/works").then((res) =>
+		res.json()
+	);
 	fetch("http://localhost:5678/api/categories")
-	.then(res => res.json())
-	.then((categories) => {
-		// button TOUS to load all the works
-		const tousButton = document.createElement("button");
-		tousButton.innerText = "Tous";
-		filters.appendChild(tousButton);
-		tousButton.addEventListener("click", function () {
-			fetchWork();
-		});
-		for (let i = 0; i < categories.length; i++) {
-			// creation of a button for each category
-			const newButton = document.createElement("button");
-			newButton.innerText = categories[i].name;
-			filters.appendChild(newButton);
-
-			// display of the filtered category
-			newButton.addEventListener("click", function () {
-				const works_i = works.filter(function (work) {
-					return work.category.name === categories[i].name;
-				});
-				generateGallery(works_i);
+		.then((res) => res.json())
+		.then((categories) => {
+			// button TOUS to load all the works
+			const tousButton = document.createElement("button");
+			tousButton.innerText = "Tous";
+			filters.appendChild(tousButton);
+			tousButton.addEventListener("click", function () {
+				fetchWork();
 			});
-	}
-})};
+			for (let i = 0; i < categories.length; i++) {
+				// creation of a button for each category
+				const newButton = document.createElement("button");
+				newButton.innerText = categories[i].name;
+				filters.appendChild(newButton);
+
+				// display of the filtered category
+				newButton.addEventListener("click", function () {
+					const works_i = works.filter(function (work) {
+						return work.category.name === categories[i].name;
+					});
+					generateGallery(works_i);
+				});
+			}
+		});
+}
 /////////////////////////////////////////
 
 /////////////////////////////
@@ -97,7 +100,6 @@ function loadCreatorInterface() {
 }
 ////////////////////////////////
 
-
 ///////////////////
 // MODAL GALLERY //
 
@@ -126,38 +128,37 @@ function generateModalGallery(works) {
 		modalWork.appendChild(divTrash);
 		modalGallery.appendChild(modalWork);
 
-		// fetch DELETE: clic on trash icon id="i" -> del works[i]
+		// fetch DELETE: click on trash icon id="i" -> del works[i]
 		document
-		.getElementById(`${i}`)
-		.addEventListener("click", async function () {
-			await fetch("http://localhost:5678/api/works/" + works[i].id, {
-				method: "DELETE",
-				headers: {
-					Authorization: "Bearer " + sessionStorage.getItem("token"),
-					"Content-Type": "application/json",
-			},
-			}).then((response) => {
-				if (response.ok) {
-					// delete the element from the modal gallery
-					modalGallery.removeChild(modalWork);
-				}
+			.getElementById(`${i}`)
+			.addEventListener("click", async function () {
+				await fetch("http://localhost:5678/api/works/" + works[i].id, {
+					method: "DELETE",
+					headers: {
+						Authorization: "Bearer " + sessionStorage.getItem("token"),
+						"Content-Type": "application/json",
+					},
+				}).then((response) => {
+					if (response.ok) {
+						// delete the element from the modal gallery
+						modalGallery.removeChild(modalWork);
+					}
+				});
+				fetchWork();
+				fetchModal();
 			});
-			fetchWork();
-			fetchModal();
-		});
 	}
 }
 
 function fetchModal() {
 	modalGallery.innerHTML = "";
 	fetch("http://localhost:5678/api/works")
-	.then((res) => res.json())
-	.then((works) => {
-		generateModalGallery(works);
-	});
+		.then((res) => res.json())
+		.then((works) => {
+			generateModalGallery(works);
+		});
 }
 ////////////////////
-
 
 //////////////////
 // MODAL UPLOAD //
@@ -180,7 +181,7 @@ let imgUrl = inputFile.addEventListener("change", () => {
 	} else {
 		imgSrc = URL.createObjectURL(imgFile);
 		imgUpload.src = imgSrc;
-		Array.from(uploadBox.children).forEach(child => {
+		Array.from(uploadBox.children).forEach((child) => {
 			child.classList.add("hidden");
 		});
 		uploadBox.style.height = "170px";
@@ -199,23 +200,27 @@ function uploadCategories() {
 	tousOption.selected = true;
 	catUpload.appendChild(tousOption);
 	fetch("http://localhost:5678/api/categories")
-	.then(res => res.json())
-	.then((categories) => {
-		for (let i = 0; i < categories.length; i++) {
-			// creation of <option> in <select> for each category
-			const newOption = document.createElement("option");
-			newOption.innerText = categories[i].name;
-			newOption.value = categories[i].id;
-			document.getElementById("catUpload").appendChild(newOption);
-		}
-	})
-};
+		.then((res) => res.json())
+		.then((categories) => {
+			for (let i = 0; i < categories.length; i++) {
+				// creation of <option> in <select> for each category
+				const newOption = document.createElement("option");
+				newOption.innerText = categories[i].name;
+				newOption.value = categories[i].id;
+				document.getElementById("catUpload").appendChild(newOption);
+			}
+		});
+}
 
 // button "Valider" activation
 let modalForm = document.querySelector(".modalForm");
 const btnSubmit = document.querySelector(".btnSubmit");
 modalForm.addEventListener("input", function () {
-	if (!titleUpload.value == "" && !catUpload.value == "" && !inputFile.value == "") {
+	if (
+		!titleUpload.value == "" &&
+		!catUpload.value == "" &&
+		!inputFile.value == ""
+	) {
 		btnSubmit.classList.add("btnSubmitValid");
 	}
 });
@@ -223,24 +228,21 @@ modalForm.addEventListener("input", function () {
 // VERIFYING FORM DATAS
 btnSubmit.addEventListener("click", function (event) {
 	event.preventDefault();
-	if (titleUpload.value == "" || catUpload.value == "" || inputFile.value == "") {
-		alert("Veuillez renseigner tous les champs");
-		uploadBox.style.border = "1px solid red";
-		let titleUploadLabel = document.querySelector('label[for="titleUpload"]');
-		let catUploadLabel = document.querySelector('label[for="catUpload"]');
-		titleUploadLabel.innerText = "Titre -> Champ obligatoire";
-		titleUploadLabel.style.color = "red";
-		titleUploadLabel.style.fontWeight = "bold";
-		catUploadLabel.innerText = "Catégories -> Champ obligatoire";
-		catUploadLabel.style.color = "red";
-		catUploadLabel.style.fontWeight = "bold";
-	} else {
-		let formData = new FormData();
-		formData.append("title", titleUpload.value);
-		formData.append("category", Number(catUpload.value));
-		formData.append("image", inputFile.files[0]);
-		fetchPost(formData);
+	let inputData = document.querySelectorAll(".inputdata");
+	let label = ["Fichier", "Titre", "Categorie"];
+	console.log(inputData);
+	for (let i = 0; i < inputData.length; i++) {
+		if (inputData[i].value == "") {
+			inputData[i].previousElementSibling.innerText = label[i] + " OBLIGATOIRE";
+			inputData[i].previousElementSibling.style.color = "red";
+			inputData[i].previousElementSibling.style.fontWeight = "bold";
+		}
 	}
+	let formData = new FormData();
+	formData.append("title", titleUpload.value);
+	formData.append("category", Number(catUpload.value));
+	formData.append("image", inputFile.files[0]);
+	fetchPost(formData);
 });
 
 // Fetch POST to upload a new work
@@ -256,7 +258,7 @@ async function fetchPost(formData) {
 			if (response.ok) {
 				alert(titleUpload.value + " ajouté à la galerie.");
 				imgUpload.remove();
-				Array.from(uploadBox.children).forEach(child => {
+				Array.from(uploadBox.children).forEach((child) => {
 					child.classList.remove("hidden");
 				});
 				inputFile.value = "";
@@ -268,13 +270,13 @@ async function fetchPost(formData) {
 				fetchWork();
 				fetchModal();
 			} else {
-				alert("Formulaire mal rempli");
+				alert("Erreur dans le formulaire");
 			}
 		})
 		.catch((error) => {
 			console.log(error);
 		});
-};
+}
 
 ///////////////////
 
@@ -291,7 +293,7 @@ modifier.addEventListener("click", function () {
 	fetchModal();
 });
 
-// cross clic -> close the modal
+// cross click -> close the modal
 const exitMW = document.querySelector(".exitModalWindow");
 exitMW.addEventListener("click", function () {
 	modalBackground.classList.remove("active");
@@ -299,7 +301,7 @@ exitMW.addEventListener("click", function () {
 	modalUpload.classList.remove("active");
 });
 
-// background clic -> close the modal
+// background click -> close the modal
 const modalBackground = document.querySelector(".modalBackground");
 modalBackground.addEventListener("click", function (event) {
 	if (event.target === modalBackground) {
@@ -309,20 +311,29 @@ modalBackground.addEventListener("click", function (event) {
 	}
 });
 
-// clic on "Ajouter une photo" -> open modal upload
+// click on "Ajouter une photo" -> open modal upload
 const modalUpload = document.querySelector(".modalUpload");
 const btnAddPhoto = document.querySelector(".btnAddPhoto");
 btnAddPhoto.addEventListener("click", function () {
 	modalWindow.classList.remove("active");
 	modalUpload.classList.add("active");
+
+	// reset of possible changes in modal upload
+	// like unfinished form or error messages
 	imgUpload.remove();
-	Array.from(uploadBox.children).forEach(child => {
+	Array.from(uploadBox.children).forEach((child) => {
 		child.classList.remove("hidden");
 	});
 	inputFile.value = "";
 	titleUpload.value = "";
 	catUpload.value = "";
 	btnSubmit.classList.remove("btnSubmitValid");
+	btnUpload.innerText = "+ Ajouter photo";
+	btnUpload.style.color = "black";
+	document.querySelector("label[for='titleUpload']").innerText = "Titre";
+	document.querySelector("label[for='titleUpload']").style.color = "black";
+	document.querySelector("label[for='catUpload']").innerText = "Categorie";
+	document.querySelector("label[for='catUpload']").style.color = "black";
 	uploadCategories();
 });
 
