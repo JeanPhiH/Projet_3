@@ -69,18 +69,21 @@ async function fetchCategories() {
 // LOADING OF EDITION MODE //
 
 let filters = document.querySelector(".filters");
+
 // if a token is present in sessionStorage, execution of loadCreatorInterface()
 if (sessionStorage.getItem("token")) {
 	loadCreatorInterface();
 } else {
+	filters.classList.add("active");
 	fetchWork();
 	fetchCategories();
 }
 
 function loadCreatorInterface() {
-	let logstate = document.querySelector(".logstate");
-
+	
+	filters.classList.remove("active");
 	// deactivation of the login link
+	let logstate = document.querySelector(".logstate");
 	logstate.innerText = "Logout";
 	logstate.href = "#";
 
@@ -178,6 +181,9 @@ let imgUrl = inputFile.addEventListener("change", () => {
 	if (imgFile.size > 4000000) {
 		alert("Le fichier est trop volumineux !");
 		inputFile.value = "";
+	} else if (imgFile.type !== 'image/jpeg' && imgFile.type !== 'image/png') {
+		alert("Seuls les formats .jpg et .png sont acceptés !");
+		inputFile.value = "";
 	} else {
 		imgSrc = URL.createObjectURL(imgFile);
 		imgUpload.src = imgSrc;
@@ -256,7 +262,7 @@ async function fetchPost(formData) {
 	})
 		.then(async (response) => {
 			if (response.ok) {
-				alert(titleUpload.value + " ajouté à la galerie.");
+				console.log(titleUpload.value + " ajouté à la galerie.");
 				imgUpload.remove();
 				Array.from(uploadBox.children).forEach((child) => {
 					child.classList.remove("hidden");
@@ -270,7 +276,7 @@ async function fetchPost(formData) {
 				fetchWork();
 				fetchModal();
 			} else {
-				alert("Erreur dans le formulaire");
+				console.log("Erreur dans le formulaire");
 			}
 		})
 		.catch((error) => {

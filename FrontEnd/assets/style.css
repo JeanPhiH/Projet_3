@@ -185,7 +185,9 @@ nav img {
 	position: relative;
 	width: 85%;
 }
-
+#portfolio h2 {
+	margin-bottom: 50px;
+}
 .modifier {
 	position: absolute;
 	left: 63%;
@@ -196,14 +198,14 @@ nav img {
 	cursor: pointer;
 }
 
-/* Boutons filtre */
+/* filter buttons */
 .filters {
-	display: flex;
+	display: none;
 	justify-content: center;
 	align-items: center;
 	gap: 10px;
 	height: 37px;
-	margin: 50px auto;
+	margin: 0 auto;
 }
 
 .filters button {
@@ -222,7 +224,6 @@ nav img {
 	height: 100%;
 }
 
-/* Activation des boutons filtres */
 .filters button:focus {
   background-color: var(--main-color);
   color: white;
@@ -239,6 +240,7 @@ nav img {
 .gallery {
 	width: 100%;
 	display: grid;
+	margin-top: 50px;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
@@ -317,9 +319,9 @@ footer li {
 	font-size: 1em;
 }
 
-/******************/
-/* MODALE GALERIE */
-/******************/
+/*****************/
+/* MODAL GALLERY */
+/*****************/
 
 .modalBackground {
 	display: none;
@@ -337,7 +339,7 @@ footer li {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	width: 45%;
+	width: 640px;
 	background-color: var(--bg-color);
 	border-radius: 10px;
 	padding: 45px 105px;
@@ -407,9 +409,9 @@ h3 {
 	background-color: #0E2F28;
 }
 
-/*****************/
-/* MODALE UPLOAD */
-/*****************/
+/****************/
+/* MODAL UPLOAD */
+/****************/
 
 .modalUpload {
 	position: relative;
@@ -417,7 +419,7 @@ h3 {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	width: 45%;
+	width: 640px;
 	background-color: var(--bg-color);
 	border-radius: 10px;
 	padding: 45px 105px;
