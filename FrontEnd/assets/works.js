@@ -3,6 +3,16 @@
 
 const gallery = document.querySelector(".gallery");
 
+// fetch GET works in Gallery
+function fetchWork() {
+	fetch("http://localhost:5678/api/works")
+		.then((res) => res.json())
+		.then((works) => {
+			generateGallery(works);
+		});
+}
+
+// Generate the gallery
 function generateGallery(works) {
 	gallery.innerHTML = "";
 	for (let i = 0; i < works.length; i++) {
@@ -19,16 +29,8 @@ function generateGallery(works) {
 		figure.appendChild(figcaption);
 	}
 }
-
-// fetch GET works in Gallery
-function fetchWork() {
-	fetch("http://localhost:5678/api/works")
-		.then((res) => res.json())
-		.then((works) => {
-			generateGallery(works);
-		});
-}
 /////////////////////////////////////
+
 
 /////////////////////////////
 // DYNAMIC FILTERS BUTTONS //
@@ -37,17 +39,23 @@ async function fetchCategories() {
 	let works = await fetch("http://localhost:5678/api/works").then((res) =>
 		res.json()
 	);
+
+	// fetch GET all the categories
 	fetch("http://localhost:5678/api/categories")
 		.then((res) => res.json())
 		.then((categories) => {
+
 			// button TOUS to load all the works
 			const tousButton = document.createElement("button");
 			tousButton.innerText = "Tous";
 			filters.appendChild(tousButton);
+
+			// click on TOUS -> display all the works
 			tousButton.addEventListener("click", function () {
 				fetchWork();
 			});
 			for (let i = 0; i < categories.length; i++) {
+
 				// creation of a button for each category
 				const newButton = document.createElement("button");
 				newButton.innerText = categories[i].name;

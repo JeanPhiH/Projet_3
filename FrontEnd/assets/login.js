@@ -1,4 +1,5 @@
-/** AUTHENTIFICATION **********/
+//////////////////////
+// AUTHENTIFICATION //
 
 const loginForm = document.getElementById("login-form");
 loginForm.addEventListener("submit", function (event) {
@@ -12,6 +13,7 @@ loginForm.addEventListener("submit", function (event) {
 
 	const login_string = JSON.stringify(login);
 
+	// fetch POST to log if response ok
 	fetch("http://localhost:5678/api/users/login", {
 		method: "POST",
 		headers: { "Content-Type": "application/json"},
@@ -19,6 +21,8 @@ loginForm.addEventListener("submit", function (event) {
 	}).then((response) => {
 			if (response.ok) {
 				response.json().then((data) => {
+					
+					// token and userId storage
 					sessionStorage.setItem("token", data.token);
 					sessionStorage.setItem("userId", data.userId);
 					window.location.href = "index.html";
@@ -30,4 +34,4 @@ loginForm.addEventListener("submit", function (event) {
 		}
 	})
 })
-
+//////////////////////

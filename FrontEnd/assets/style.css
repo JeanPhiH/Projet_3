@@ -310,6 +310,8 @@ footer {
 	align-items: center;
 	justify-content: flex-end;
 	height: 60px;
+	max-width: 1440px;
+	margin: 0 auto;
 	background-color: white;
 }
 footer nav ul {
