@@ -80,7 +80,6 @@ if (sessionStorage.getItem("token")) {
 }
 
 function loadCreatorInterface() {
-	
 	filters.classList.remove("active");
 	// deactivation of the login link
 	let logstate = document.querySelector(".logstate");
@@ -148,7 +147,7 @@ function generateModalGallery(works) {
 					}
 				});
 				fetchWork();
-				fetchModal();
+				// fetchModal();
 			});
 	}
 }
@@ -181,7 +180,7 @@ let imgUrl = inputFile.addEventListener("change", () => {
 	if (imgFile.size > 4000000) {
 		alert("Le fichier est trop volumineux !");
 		inputFile.value = "";
-	} else if (imgFile.type !== 'image/jpeg' && imgFile.type !== 'image/png') {
+	} else if (imgFile.type !== "image/jpeg" && imgFile.type !== "image/png") {
 		alert("Seuls les formats .jpg et .png sont acceptés !");
 		inputFile.value = "";
 	} else {
