@@ -20,18 +20,17 @@ loginForm.addEventListener("submit", function (event) {
 		body: login_string
 	}).then((response) => {
 			if (response.ok) {
-				response.json().then((data) => {
-					
-					// token and userId storage
-					sessionStorage.setItem("token", data.token);
-					sessionStorage.setItem("userId", data.userId);
-					window.location.href = "index.html";
-				})
+				return response.json()
 			} else {
 				let error = document.querySelector(".error");
 				error.innerText = "Erreur dans l’identifiant ou le mot de passe !";
-			
 		}
+	}).then((data) => {
+					
+		// token and userId storage
+		sessionStorage.setItem("token", data.token);
+		sessionStorage.setItem("userId", data.userId);
+		window.location.href = "index.html";
 	})
 })
 //////////////////////

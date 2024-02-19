@@ -342,6 +342,8 @@ footer li {
 	justify-content: space-between;
 	align-items: center;
 	width: 640px;
+	max-height: 700px;
+	overflow: auto;
 	background-color: var(--bg-color);
 	border-radius: 10px;
 	padding: 45px 105px;
