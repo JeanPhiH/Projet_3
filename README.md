@@ -1,8 +1,12 @@
-# Portfolio-architecte-sophie-bluel
+# Portfolio de l’architecte Sophie Bluel
 
-Code du projet 6 d'intégrateur web.
+Projet 3 du parcours Développeur Web OpenClassrooms.
 
-## Information pour le lancer le code
-
- - Lancer le backend depuis votre terminal en suivant les instruction du fichier ReadMe.
- - Si vous désirez afficher le code du backend et du frontend, faites le dans 2 instances de VSCode différentes pour éviter tout problème
+## Information pour lancer le code
+ - Ouvrir le backend dans une instance VSCode
+ - Lancer le terminal depuis le backend et exéuter la commande:
+ `$ npm install`
+ puis 
+ `$ npm start`
+ - Lancer le frontend depuis une autre instance VSCode pour pouvoir bénéficier du Live Server sans problème
+ - Des informations supplémentaires sont présentes dans le `README` du backend
