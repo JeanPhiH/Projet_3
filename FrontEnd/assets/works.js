@@ -155,7 +155,6 @@ function generateModalGallery(works) {
 					}
 				});
 				fetchWork();
-				// fetchModal();
 			});
 	}
 }
@@ -241,14 +240,13 @@ modalForm.addEventListener("input", function () {
 // VERIFYING FORM DATAS
 btnSubmit.addEventListener("click", function (event) {
 	event.preventDefault();
+	resetFormErrorMessages();
 	let inputData = document.querySelectorAll(".inputdata");
 	let label = ["Fichier", "Titre", "Categorie"];
-	console.log(inputData);
 	for (let i = 0; i < inputData.length; i++) {
 		if (inputData[i].value == "") {
 			inputData[i].previousElementSibling.innerText = label[i] + " OBLIGATOIRE";
 			inputData[i].previousElementSibling.style.color = "red";
-			inputData[i].previousElementSibling.style.fontWeight = "bold";
 		}
 	}
 	let formData = new FormData();
@@ -341,14 +339,19 @@ btnAddPhoto.addEventListener("click", function () {
 	titleUpload.value = "";
 	catUpload.value = "";
 	btnSubmit.classList.remove("btnSubmitValid");
+	resetFormErrorMessages();
+	uploadCategories();
+});
+
+// reset error messages of the upload modal
+function resetFormErrorMessages() {
 	btnUpload.innerText = "+ Ajouter photo";
 	btnUpload.style.color = "black";
 	document.querySelector("label[for='titleUpload']").innerText = "Titre";
 	document.querySelector("label[for='titleUpload']").style.color = "black";
 	document.querySelector("label[for='catUpload']").innerText = "Categorie";
 	document.querySelector("label[for='catUpload']").style.color = "black";
-	uploadCategories();
-});
+}
 
 // modal upload cross -> close the modal
 const exitMA = document.querySelector(".exitModalUpload");
@@ -365,3 +368,4 @@ retour.addEventListener("click", function () {
 	modalUpload.classList.remove("active");
 });
 /////////////////////
+
