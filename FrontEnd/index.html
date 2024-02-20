@@ -22,7 +22,6 @@
 		<script src="./assets/works.js" defer></script>
 	</head>
 	<body>
-
 		<!------------>
 		<!-- HEADER -->
 		<!------------>
@@ -90,25 +89,21 @@
 					<span>modifier</span>
 				</div>
 				<h2>Mes Projets</h2>
-				<br>
+				<br />
 				<div class="filters">
-
 					<!-- Boutons filtres généré en JS 
 					<button> Tous </button>
 					<button> categories[i].name </button>
 					-->
-
 				</div>
-				
-				<div class="gallery">
 
+				<div class="gallery">
 					<!-- Contenu généré en JS 
 					<figure>
 						<img> works[i].imgUrl </img>
 						<figcaption> works[i].title </figcaption>
 					</figure>
 					-->
-					
 				</div>
 			</section>
 
@@ -152,7 +147,6 @@
 				<i class="fa-solid fa-xmark exitModalWindow"></i>
 				<h3>Galerie photo</h3>
 				<div class="modalGallery">
-
 					<!-- généré en JS
 					<div class="modalWork">
 						<img src="#">	
@@ -161,15 +155,14 @@
 						</div>
 					</div>
 					-->
-
 				</div>
 				<div class="line"><hr /></div>
 				<button class="btnAddPhoto">Ajouter une photo</button>
 			</div>
 
-		<!------------------>
-		<!-- MODAL UPLOAD -->
-		<!------------------>
+			<!------------------>
+			<!-- MODAL UPLOAD -->
+			<!------------------>
 
 			<div class="modalUpload">
 				<i class="fa-solid fa-arrow-left"></i>
@@ -179,22 +172,26 @@
 					<div class="uploadBox">
 						<i class="fa-regular fa-image"></i>
 						<label class="btnUpload" for="inputFile">+ Ajouter photo</label>
-						<input class = "inputdata" type="file" id="inputFile" accept=".jpg, .png" required/>
+						<input
+							class="inputdata"
+							type="file"
+							id="inputFile"
+							accept=".jpg, .png"
+							required
+						/>
 						<p id="uploadAut">jpg, png : 4mo max</p>
 					</div>
 					<div class="uploadInfo">
 						<label for="titleUpload">Titre</label>
-						<input class = "inputdata" type="string" id="titleUpload" required />
+						<input class="inputdata" type="text" id="titleUpload" required />
 						<label for="catUpload">Catégorie</label>
-						<select class = "inputdata" id="catUpload" required>
-
+						<select class="inputdata" id="catUpload">
 							<!-- Généré en JS
 							<option value=""></option>
 							<option value="Objets">Objets</option>
 							<option value="Appartements">Appartements</option>
 							<option value="Hôtels & restaurants">Hôtels & restaurants</option> 
 							-->
-
 						</select>
 					</div>
 					<div class="line"><hr /></div>
