@@ -128,7 +128,7 @@ function generateModalGallery(works) {
 
 		const divTrash = document.createElement("div");
 		divTrash.classList.add("trash");
-		divTrash.id = `${i}`;
+		divTrash.dataset.trashid = `${i}`;
 
 		const iTrash = document.createElement("i");
 		iTrash.classList.add("fa-trash-alt");
@@ -140,7 +140,7 @@ function generateModalGallery(works) {
 
 		// fetch DELETE: click on trash icon id="i" -> del works[i]
 		document
-			.getElementById(`${i}`)
+			.querySelector(`.trash[data-trashid="${i}"]`)
 			.addEventListener("click", async function () {
 				await fetch("http://localhost:5678/api/works/" + works[i].id, {
 					method: "DELETE",
