@@ -224,11 +224,6 @@ nav img {
 	height: 100%;
 }
 
-.filters button:focus {
-  background-color: var(--main-color);
-  color: white;
-  cursor: default;
-}
 .filters button:hover {
   background-color: var(--main-color);
   color: white;
@@ -441,6 +436,17 @@ h3 {
 	left: 30px;
 	font-size: 20px;
 	cursor: pointer;
+}
+.errorSize {
+	color: red;
+	position: absolute;
+	top: 95px;
+	
+}
+.errorFormat {
+	color: red;
+	position: absolute;
+	top: 110px;
 }
 .modalForm {
 	width: 100%;

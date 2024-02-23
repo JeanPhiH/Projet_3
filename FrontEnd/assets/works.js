@@ -48,10 +48,18 @@ async function fetchCategories() {
 			// button TOUS to load all the works
 			const tousButton = document.createElement("button");
 			tousButton.innerText = "Tous";
+
 			filters.appendChild(tousButton);
 
 			// click on TOUS -> display all the works
 			tousButton.addEventListener("click", function () {
+				document.querySelectorAll('.filters button').forEach(function(button) {
+					button.style.backgroundColor = 'transparent';
+					button.style.color = 'var(--main-color)';
+				});
+				tousButton.style.backgroundColor = "var(--main-color)";
+				tousButton.style.color = "white";
+
 				fetchWork();
 			});
 			for (let i = 0; i < categories.length; i++) {
@@ -63,6 +71,12 @@ async function fetchCategories() {
 
 				// display of the filtered category
 				newButton.addEventListener("click", function () {
+					document.querySelectorAll('.filters button').forEach(function(button) {
+						button.style.backgroundColor = 'transparent';
+						button.style.color = 'var(--main-color)';
+					});
+					newButton.style.backgroundColor = "var(--main-color)";
+					newButton.style.color = "white";
 					const works_i = works.filter(function (work) {
 						return work.category.name === categories[i].name;
 					});
@@ -178,19 +192,24 @@ const inputFile = document.getElementById("inputFile");
 const titleUpload = document.getElementById("titleUpload");
 const catUpload = document.getElementById("catUpload");
 const imgUpload = document.createElement("img");
+const errorSize = document.querySelector(".errorSize");
+const errorFormat = document.querySelector(".errorFormat");
 imgUpload.classList.add("imgUpload");
 
 // IMAGE UPLOAD
 let imgSrc;
 let imgUrl = inputFile.addEventListener("change", () => {
+		errorSize.innerText = "";
+		errorFormat.innerText = "";
 	const imgFile = inputFile.files[0];
 	if (imgFile.size > 4000000) {
-		alert("Le fichier est trop volumineux !");
+		errorSize.innerText = "Le fichier est trop volumineux !";
 		inputFile.value = "";
 	} else if (imgFile.type !== "image/jpeg" && imgFile.type !== "image/png") {
-		alert("Seuls les formats .jpg et .png sont acceptés !");
+		errorFormat.innerText = "Seuls les formats .jpg et .png sont acceptés !";
 		inputFile.value = "";
 	} else {
+		
 		imgSrc = URL.createObjectURL(imgFile);
 		imgUpload.src = imgSrc;
 		Array.from(uploadBox.children).forEach((child) => {
@@ -347,6 +366,8 @@ btnAddPhoto.addEventListener("click", function () {
 function resetFormErrorMessages() {
 	btnUpload.innerText = "+ Ajouter photo";
 	btnUpload.style.color = "black";
+	errorSize.innerText = "";
+	errorFormat.innerText = "";
 	document.querySelector("label[for='titleUpload']").innerText = "Titre";
 	document.querySelector("label[for='titleUpload']").style.color = "black";
 	document.querySelector("label[for='catUpload']").innerText = "Categorie";
